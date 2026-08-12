@@ -1,0 +1,331 @@
+\lecture
+
+\begin{guiding}
+Everything converges here. The $S_I$ matrix theorem shows that products of
+projective spaces are independent in cobordism; the oriented cobordism ring
+organizes the question; and Thom's theorem converts cobordism into homotopy
+theory. Together they compute $\Omega_*\otimes\Q$.
+\end{guiding}
+
+\section{Proof of the matrix theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:matrix-nondegenerate}]
+\begin{strategy}
+Order partitions by their number of parts. The multiplicativity of $S_I$ shows
+that $S_I$ can be non-zero on a product indexed by $J$ only when $I$ has at
+least as many parts as $J$, and that on the diagonal $I=J$ it is a product of
+non-zero numbers. That makes the matrix of the $S_I$ triangular with non-zero
+diagonal; a change of basis converts it into the matrix of Chern numbers.
+\end{strategy}
+
+\step{1} \emph{Multiplicativity.} Iterating Theorem~\ref{thm:SI-sum} across a
+product $X^{j_1}\times\dots\times X^{j_s}$, whose tangent bundle is the sum of
+the pull-backs of the $TX^{j_t}$,
+\[
+S_I\big(X^{j_1}\times\cdots\times X^{j_s}\big)
+=\sum_{I_1I_2\cdots I_s=I}
+S_{I_1}\big(X^{j_1}\big)\cdots S_{I_s}\big(X^{j_s}\big),
+\]
+the sum being over all ways of splitting $I$ into $s$ consecutive
+sub-partitions.
+
+\step{2} \emph{Which terms survive evaluation.} Evaluating on the fundamental
+class, a term vanishes unless each $I_t$ has weight $j_t$, that is, unless
+$I_t$ is a partition of $j_t$: otherwise the corresponding factor lies in a
+cohomology group above or below the top degree of $X^{j_t}$. In particular each
+$I_t$ is non-empty, so
+\[
+S_I\big[X^{j_1}\times\cdots\times X^{j_s}\big]\neq0
+\quad\Longrightarrow\quad
+\#\{\text{parts of }I\}\ \ge\ \#\{\text{parts of }J\}.
+\]
+
+\step{3} \emph{The diagonal.} If $I=J$ as partitions, the only splittings that
+contribute are those with $I_t=(j_t)$ a single part, so
+\[
+S_J\big[X^{j_1}\times\cdots\times X^{j_s}\big]
+=\lambda_J\prod_{t=1}^{s}S_{j_t}\big[X^{j_t}\big],
+\]
+where $\lambda_J$ is a positive integer counting the number of such splittings.
+By hypothesis every factor is non-zero, so the diagonal entry is non-zero.
+
+\step{4} \emph{Triangularity.} Order the $p(n)$ partitions of $n$ so that the
+number of parts is non-decreasing. By Step 2 the matrix
+$\big(S_I[X^J]\big)_{I,J}$ vanishes below the diagonal blocks and by Step 3 has
+non-zero entries on the diagonal, so its determinant is non-zero.
+
+\step{5} \emph{From $S_I$ to Chern numbers.} Each $S_I$ is an integral linear
+combination of the monomials $c_{i_1}\cdots c_{i_r}$ of the same weight, and
+conversely, because both families are bases of the same lattice, as shown in the
+next paragraph. Hence the matrix of Chern numbers is obtained from the matrix of
+the $S_I$ by an invertible change of basis and is therefore also
+non-degenerate.
+\end{proof}
+
+\medskip\noindent\emph{The change of basis.} Inside $\Z[u_1,\dots,u_n]$ the
+symmetric polynomials form $\Z[\sigma_1,\dots,\sigma_n]$. Its part of degree $k$
+has two natural bases indexed by the partitions $\lambda\vdash k$ into at most
+$n$ parts:
+
+\begin{itemize}
+\item the monomials in the elementary symmetric functions,
+$\sigma_\lambda=\sigma_{\lambda_1}\sigma_{\lambda_2}\cdots$, equivalently
+$\sigma_1^{r_1}\cdots\sigma_n^{r_n}$ with $\sum i\,r_i=k$;
+\item the symmetrized monomials $S_\lambda$, each distinct monomial of exponent
+pattern $\lambda$ appearing once.
+\end{itemize}
+
+The first is a basis by the fundamental theorem of symmetric polynomials; the
+second because every symmetric polynomial is by definition a sum of
+symmetrized monomials. The transition matrix between two bases of the same free
+module is invertible over $\Z$, which is what Step 5 used.
+
+\begin{remark}
+When applying Theorem~\ref{thm:SI-sum} it matters that each monomial is counted
+once. Writing $S_I$ as a sum over all of $S_n$ would count each monomial
+$|\mathrm{Iso}|$ times, where $\mathrm{Iso}$ is the isotropy group of the
+exponent pattern; the multiplicativity formula holds for the normalized version.
+\end{remark}
+
+\medskip\noindent\emph{The Pontryagin version.} For a closed oriented $M^{4m}$
+and $I\vdash m$ define $S_I(p(E))$ by the same universal polynomial in the
+Pontryagin classes and put $S_I[M]=\langle S_I(p(TM)),[M]\rangle$. Since the
+Pontryagin classes are multiplicative only modulo $2$-torsion
+(Theorem~\ref{thm:pontryagin-whitney}),
+\[
+S_I\big(p(E\oplus E')\big)=\sum_{JK=I}S_J\big(p(E)\big)\,S_K\big(p(E')\big)
+\qquad\text{modulo $2$-torsion,}
+\]
+which is enough for evaluation against fundamental classes, torsion classes
+pairing to zero with an integral class after multiplication by $2$.
+
+\begin{theorem}\label{thm:pontryagin-matrix}
+Let $\{M^{4k}\}_{k\ge1}$ be closed oriented manifolds with $S_k[M^{4k}]\neq0$.
+Then for every $n$ the $p(n)\times p(n)$ matrix of Pontryagin numbers
+\[
+\Big(P_I\big(M^{4j_1}\times\cdots\times M^{4j_s}\big)\Big)_{I,J\vdash n}
+\]
+is non-degenerate. The family $M^{4k}=\CP^{2k}$ qualifies, since
+$p(T\CP^{2k})=(1+u^2)^{2k+1}$ gives $S_k[\CP^{2k}]=2k+1\neq0$.
+\end{theorem}
+
+\begin{proof}
+The five steps of the proof above apply verbatim, with $c$ replaced by $p$ and
+degrees multiplied by two; the only change is that the identities hold modulo
+$2$-torsion, which does not affect the evaluations.
+\end{proof}
+
+\begin{remark}[quoted]
+The classifying space for \emph{oriented} bundles is the oriented Grassmannian
+$\tilde G_n$ of oriented $n$-planes, and
+\[
+H^*\big(\tilde G_{2m+1};\Q\big)=\Q[p_1,\dots,p_m],
+\]
+\[
+H^*\big(\tilde G_{2m};\Q\big)=\Q[p_1,\dots,p_{m-1},e],
+\qquad e^2=p_m .
+\]
+So rationally the Pontryagin classes, together with the Euler class in even
+rank, are all the characteristic classes of oriented bundles.
+\end{remark}
+
+\section{The oriented cobordism ring}
+
+\begin{definition}
+Closed oriented manifolds $M,M'$ of dimension $n$ are \emph{oriented cobordant}
+if there is a compact oriented $X$ together with an orientation preserving
+diffeomorphism $M\sqcup(-M')\iso\partial X$, the boundary carrying its induced
+orientation. Let $\Omega_n$ be the set of equivalence classes.
+\end{definition}
+
+\begin{proposition}
+$\Omega_n$ is an abelian group under disjoint union, with zero the class of
+boundaries and with $-[M]=[-M]$; and
+$\Omega_*=\bigoplus_{n\ge0}\Omega_n$ is a graded commutative ring under
+Cartesian product.
+\end{proposition}
+
+\begin{proof}
+Reflexivity uses $M\sqcup(-M)=\partial(M\times[0,1])$; symmetry is reversal of
+orientation of the cobordism; transitivity is gluing two cobordisms along a
+common boundary component, which is again a smooth manifold after smoothing the
+corner. Associativity and commutativity of $\sqcup$ and $\times$ are clear, and
+the product of a boundary with a closed manifold is a boundary, so the product
+descends to classes.
+\end{proof}
+
+\begin{lemma}
+Oriented cobordant manifolds have equal Pontryagin numbers.
+\end{lemma}
+
+\begin{proof}
+If $M\sqcup(-M')$ bounds, Lemma~\ref{lem:pontryagin-boundary} gives
+$P_I(M)+P_I(-M')=0$, and $P_I(-M')=-P_I(M')$.
+\end{proof}
+
+\begin{corollary}\label{cor:rank-omega}
+For every partition $I$ of $k$ the assignment $[M]\mapsto P_I(M)$ is a group
+homomorphism $\Omega_{4k}\to\Z$. The products
+$\CP^{2i_1}\times\dots\times\CP^{2i_r}$, as $I=(i_1,\dots,i_r)$ runs over the
+partitions of $k$, are linearly independent in $\Omega_{4k}$, so
+\[
+\rk\,\Omega_{4k}\ \ge\ p(k).
+\]
+\end{corollary}
+
+\begin{proof}
+Assemble the homomorphisms into
+$\Omega_{4k}\to\Z^{p(k)}$, $[M]\mapsto(P_I(M))_I$. By
+Theorem~\ref{thm:pontryagin-matrix} the images of the $p(k)$ products
+$\CP^{2i_1}\times\dots\times\CP^{2i_r}$ form a non-degenerate matrix, hence are
+linearly independent over $\Q$; so the classes themselves are independent.
+\end{proof}
+
+\section{Thom spaces}
+
+\begin{definition}
+Let $\pi\colon E\to B$ be a real bundle of rank $k$ with a Euclidean metric, and
+$E^{\ge1}=\{e\mid |e|\ge1\}$. The \emph{Thom space} is the pointed space
+\[
+T(E)=E\big/E^{\ge1},
+\qquad
+*_E=\big[E^{\ge1}\big],
+\]
+that is, the unit disc bundle with its boundary sphere bundle collapsed to a
+point.
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+\draw[thick] (0,0) ellipse (1.1 and 0.34);
+\draw[thick] (0,1.5) ellipse (1.1 and 0.34);
+\draw[thick] (-1.1,0) -- (-1.1,1.5);
+\draw[thick] (1.1,0) -- (1.1,1.5);
+\node at (0,-0.85) {\small disc bundle over $B$};
+\draw[-{Stealth},thick] (1.9,0.75) -- (3.1,0.75);
+\fill (4.6,0.75) circle (1.7pt);
+\draw[thick] (4.6,0.75) .. controls (4.05,1.75) and (5.8,1.75) .. (4.6,0.75);
+\draw[thick] (4.6,0.75) .. controls (4.05,-0.25) and (5.8,-0.25) .. (4.6,0.75);
+\node at (4.7,-0.85) {\small $T(E)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{proposition}\label{prop:thom-space}
+$\tilde H^{i+k}\big(T(E)\big)\iso H^i(B)$ by the Thom isomorphism, for oriented
+$E$ over $\Z$. If $B$ is a CW complex then $T(E)$ is a CW complex with one
+$(d+k)$-cell for each $d$-cell of $B$, plus the basepoint; in particular
+$T(E)$ is $(k-1)$-connected.
+\end{proposition}
+
+\begin{proof}
+Since $E^{\ge1}$ is a deformation retract of $E_0$, we have
+\[
+\tilde H^*\big(T(E)\big)\iso H^*\big(E,E^{\ge1}\big)\iso H^*(E,E_0)
+\iso H^{*-k}(B)
+\]
+by Theorem~\ref{thm:thom}. For the cell structure, over a $d$-cell $D^d$ the
+bundle is trivial, so the part of the disc bundle above it is
+$D^d\times D^k$, contributing one $(d+k)$-cell after the collapse. Since
+$T(E)$ then has no cells in dimensions $1,\dots,k-1$ apart from the basepoint, a
+cellular approximation argument shows every map $S^m\to T(E)$ with $m<k$ is
+null-homotopic.
+\end{proof}
+
+\section{Thom's theorem}
+
+\begin{definition}
+Let $\mathcal C$ be the class of finite abelian groups. A homomorphism
+$h\colon A\to B$ is a \emph{$\mathcal C$-isomorphism} if $\ker h$ and
+$\mathrm{coker}\,h$ both lie in $\mathcal C$.
+\end{definition}
+
+\begin{theorem}[Hurewicz modulo $\mathcal C$, quoted]
+If $X$ is a finite CW complex which is $(k-1)$-connected, then the Hurewicz map
+$\pi_r(X)\to H_r(X;\Z)$ is a $\mathcal C$-isomorphism for $r<2k-1$.
+\end{theorem}
+
+\begin{corollary}\label{cor:hurewicz-thom}
+For an oriented rank $k$ bundle $E$ over a finite CW complex $B$, and $n<k-1$,
+the composite
+\[
+\pi_{n+k}\big(T(E)\big)\longrightarrow H_{n+k}\big(T(E);\Z\big)\iso H_n(B;\Z)
+\]
+is a $\mathcal C$-isomorphism.
+\end{corollary}
+
+\begin{theorem}[Thom]\label{thm:thom-cobordism}
+For $k>n+1$ there is a canonical isomorphism
+\[
+\pi_{n+k}\big(T(\tilde\gamma^k)\big)\ \iso\ \Omega_n,
+\]
+where $\tilde\gamma^k$ is the universal oriented $k$-plane bundle over
+$\tilde G_k$.
+\end{theorem}
+
+\begin{proof}[Proof of surjectivity]
+\begin{strategy}
+Given a closed oriented $M^n$, embed it in a sphere, and collapse everything
+outside a tubular neighbourhood; what remains is a map from the sphere to the
+Thom space of the normal bundle, which maps to the Thom space of the universal
+bundle. The preimage of the zero section is $M$ by construction.
+\end{strategy}
+
+\step{1} \emph{Embedding.} By Whitney, embed $M^n\subset\R^{n+k}\subset S^{n+k}$
+and let $E$ be its normal bundle, oriented by
+$TM\oplus E=T\R^{n+k}|_M$.
+
+\step{2} \emph{The collapse map.} Let $U\iso E$ be a tubular neighbourhood
+(Theorem~\ref{thm:tnt}). Collapsing the complement of $U$ gives
+\[
+S^{n+k}\longrightarrow S^{n+k}\big/\big(S^{n+k}\smallsetminus U\big)\iso T(E),
+\]
+a continuous map sending everything outside the tube to the basepoint.
+
+\step{3} \emph{To the universal Thom space.} A bundle map $E\to\tilde\gamma^k$,
+which exists by the oriented version of Theorem~\ref{thm:universal}, induces a
+pointed map $T(E)\to T(\tilde\gamma^k)$. Composing with Step 2 gives
+$g\colon S^{n+k}\to T(\tilde\gamma^k)$.
+
+\step{4} \emph{Recovering $M$.} By construction $g$ is smooth and transverse to
+the zero section near the preimage of the zero section, and
+$g^{-1}(\text{zero section})=M$ with normal bundle $g^*\tilde\gamma^k\iso E$.
+Hence the class of $g$ maps to $[M]$.
+\end{proof}
+
+\begin{remark}[quoted]
+For injectivity, and to define the inverse map, one uses transversality: every
+continuous $g\colon S^{n+k}\to T(E)$ is homotopic to one which is smooth and
+transverse to the zero section on the preimage of $E^{\le1}$, and then
+$g^{-1}(\text{zero section})$ is a closed oriented $n$-manifold whose cobordism
+class depends only on the homotopy class of $g$, a homotopy made transverse
+providing the cobordism. We do not prove the transversality statements.
+\end{remark}
+
+\begin{corollary}
+For $k$ large,
+\[
+\Omega_n\otimes\Q\ \iso\ \pi_{n+k}\big(T(\tilde\gamma^k)\big)\otimes\Q
+\ \iso\ H_n\big(\tilde G_k;\Q\big)
+=\begin{cases}
+\Q^{\,p(m)} & n=4m,\\
+0 & \text{otherwise,}
+\end{cases}
+\]
+using Corollary~\ref{cor:hurewicz-thom}, which becomes an isomorphism after
+tensoring with $\Q$ since finite groups die, together with the rational
+cohomology of $\tilde G_k$ quoted above. Combining with
+Corollary~\ref{cor:rank-omega}, where the lower bound $p(m)$ is realized by
+products of even complex projective spaces,
+\[
+\Omega_*\otimes\Q\ =\ \Q\big[\,[\CP^2],\,[\CP^4],\,[\CP^6],\dots\,\big].
+\]
+\end{corollary}
+
+\begin{remark}[where this leads]
+Everything in the course feeds forward. Hirzebruch's signature theorem expresses
+the signature of $M^{4k}$ as a universal polynomial in the Pontryagin classes,
+precisely because both sides are cobordism invariants and agree on the
+generators $\CP^{2i}$. Milnor's exotic spheres are detected by the failure of an
+identity between Pontryagin numbers. And index theory reinterprets all of these
+numbers analytically.
+\end{remark}

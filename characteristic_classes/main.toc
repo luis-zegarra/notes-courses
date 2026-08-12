@@ -1,0 +1,56 @@
+\contentsline {chapter}{Lecture 1}{4}{section*.3}%
+\contentsline {section}{\numberline {1.1}Definitions and first examples}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Sections and non-triviality}{5}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Constructions}{8}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Euclidean vector bundles}{10}{section.1.4}%
+\contentsline {chapter}{Lecture 2}{13}{section*.5}%
+\contentsline {section}{\numberline {2.1}Continuous functors of vector bundles}{13}{section.2.1}%
+\contentsline {section}{\numberline {2.2}The Stiefel--Whitney axioms}{14}{section.2.2}%
+\contentsline {section}{\numberline {2.3}The total class and Whitney duality}{16}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Computations on projective spaces}{17}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Stiefel--Whitney numbers}{20}{section.2.5}%
+\contentsline {chapter}{Lecture 3}{21}{section*.7}%
+\contentsline {section}{\numberline {3.1}Stiefel--Whitney numbers and cobordism}{21}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Classifying spaces}{22}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Grassmannians and universal bundles}{23}{section.3.3}%
+\contentsline {chapter}{Lecture 4}{27}{section*.9}%
+\contentsline {section}{\numberline {4.1}Paracompactness}{27}{section.4.1}%
+\contentsline {section}{\numberline {4.2}The universal bundle theorem}{28}{section.4.2}%
+\contentsline {section}{\numberline {4.3}A cell structure on the Grassmannian}{30}{section.4.3}%
+\contentsline {chapter}{Lecture 5}{33}{section*.12}%
+\contentsline {section}{\numberline {5.1}Schubert cells, completed}{33}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The Leray--Hirsch theorem}{36}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Projective bundles and the splitting principle}{37}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Cohomology of the Grassmannian}{39}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Existence and uniqueness of the SW classes}{40}{section.5.5}%
+\contentsline {chapter}{Lecture 6}{42}{section*.14}%
+\contentsline {section}{\numberline {6.1}Proof of the Whitney product formula}{42}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Complex vector bundles}{44}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Chern classes}{45}{section.6.3}%
+\contentsline {chapter}{Lecture 7}{48}{section*.16}%
+\contentsline {section}{\numberline {7.1}Steenrod squares}{48}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Orientations}{49}{section.7.2}%
+\contentsline {section}{\numberline {7.3}The Thom isomorphism}{49}{section.7.3}%
+\contentsline {section}{\numberline {7.4}The Euler class}{51}{section.7.4}%
+\contentsline {chapter}{Lecture 8}{53}{section*.18}%
+\contentsline {section}{\numberline {8.1}Euler classes of canonical bundles}{53}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Proof of the Thom isomorphism theorem}{54}{section.8.2}%
+\contentsline {chapter}{Lecture 9}{58}{section*.20}%
+\contentsline {section}{\numberline {9.1}The tubular neighbourhood theorem}{58}{section.9.1}%
+\contentsline {section}{\numberline {9.2}The dual class of a submanifold}{59}{section.9.2}%
+\contentsline {section}{\numberline {9.3}The diagonal}{60}{section.9.3}%
+\contentsline {section}{\numberline {9.4}The slant product}{61}{section.9.4}%
+\contentsline {chapter}{Lecture 10}{63}{section*.22}%
+\contentsline {section}{\numberline {10.1}The local computation}{63}{section.10.1}%
+\contentsline {section}{\numberline {10.2}The duality theorem and the Euler characteristic}{64}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Chern classes through the Gysin sequence}{65}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Conjugate bundles and Pontryagin classes}{66}{section.10.4}%
+\contentsline {chapter}{Lecture 11}{69}{section*.24}%
+\contentsline {section}{\numberline {11.1}The tangent bundle of complex projective space}{69}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Chern numbers and Pontryagin numbers}{70}{section.11.2}%
+\contentsline {section}{\numberline {11.3}The symmetric function classes SI}{72}{section.11.3}%
+\contentsline {chapter}{Lecture 12}{74}{section*.26}%
+\contentsline {section}{\numberline {12.1}Proof of the matrix theorem}{74}{section.12.1}%
+\contentsline {section}{\numberline {12.2}The oriented cobordism ring}{76}{section.12.2}%
+\contentsline {section}{\numberline {12.3}Thom spaces}{77}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Thom's theorem}{77}{section.12.4}%

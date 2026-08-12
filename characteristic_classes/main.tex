@@ -1,0 +1,136 @@
+\documentclass[11pt,a4paper]{report}
+
+% ---------------------------------------------------------------
+%  Algebraic Topology of Manifolds II: Characteristic Classes
+%  Lecture notes -- course by Penka Georgieva (Sorbonne Universite)
+% ---------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% (lmodern unavailable in this TeX installation; using default fonts)
+
+% --- Page layout: a narrower measure, for comfortable reading ---
+\usepackage[a4paper,left=4cm,right=4cm,top=3cm,bottom=3.2cm]{geometry}
+\linespread{1.10}
+\setlength{\parskip}{2pt plus 1pt minus 0.5pt}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows.meta,decorations.markings,calc,patterns}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black]{hyperref}
+\usepackage{enumitem}
+\setlist{itemsep=4pt,topsep=5pt,parsep=0pt}
+
+% --- Breathing room around displayed mathematics ----------------
+\setlength{\abovedisplayskip}{13pt plus 3pt minus 3pt}
+\setlength{\belowdisplayskip}{13pt plus 3pt minus 3pt}
+\setlength{\abovedisplayshortskip}{9pt plus 3pt}
+\setlength{\belowdisplayshortskip}{9pt plus 3pt}
+
+% --- Breathing room around theorem environments -----------------
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=1.3\baselineskip
+  \thm@postskip=1.1\baselineskip
+}
+\makeatother
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+
+% --- The guiding question opening a topic -----------------------
+\newenvironment{guiding}
+  {\par\medskip\noindent\textbf{Guiding question.}\itshape\ }
+  {\par\medskip}
+
+% --- Proof layout: a strategy paragraph, then numbered steps ----
+\newenvironment{strategy}
+  {\par\smallskip\noindent\emph{Strategy.}\ }
+  {\par\smallskip}
+
+\newcommand{\step}[1]{\par\medskip\noindent\emph{Step #1.}\ \ignorespaces}
+
+% --- Macros ------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\iso}{\cong}
+\newcommand{\gaman}{\gamma^1_n}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Sq}{Sq}
+\DeclareMathOperator{\Maps}{Maps}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Or}{O}
+\DeclareMathOperator{\spann}{span}
+\DeclareMathOperator{\proj}{proj}
+
+% --- Lecture headings: the chapter is titled only by its number ---
+% \lecture starts a new lecture: it advances the chapter counter (so that
+% theorem numbering stays "5.3"), prints "Lecture 5" as the heading, and puts
+% the same string in the table of contents.
+\newcommand{\lecture}{%
+  \refstepcounter{chapter}%
+  \chapter*{Lecture \thechapter}%
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Lecture \thechapter}%
+  \markboth{Lecture \thechapter}{}%
+}
+
+\title{\textbf{Algebraic Topology of Manifolds II:\\ Characteristic Classes}\\[1em]
+\large Lecture notes by Luis Zegarra}
+\author{Course by Penka Georgieva\\ Sorbonne Universit\'e}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent\textbf{About these notes.}
+These notes follow the twelve lectures of the course. They are written to be
+\emph{read}: each topic opens with the question it answers, and every proof
+begins with a short paragraph stating the strategy before the argument is
+carried out step by step. Results imported from outside the course are marked
+as such, with a reference, rather than proved. The standard reference is
+Milnor--Stasheff, \emph{Characteristic Classes}.
+
+\vspace{1em}
+
+\tableofcontents
+
+\input{lectures/lecture01}
+\input{lectures/lecture02}
+\input{lectures/lecture03}
+\input{lectures/lecture04}
+\input{lectures/lecture05}
+\input{lectures/lecture06}
+\input{lectures/lecture07}
+\input{lectures/lecture08}
+\input{lectures/lecture09}
+\input{lectures/lecture10}
+\input{lectures/lecture11}
+\input{lectures/lecture12}
+
+\end{document}

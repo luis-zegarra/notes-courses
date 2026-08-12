@@ -1,0 +1,539 @@
+\lecture
+
+\begin{guiding}
+What is a ``continuously varying family of vector spaces'' over a space, how do
+we prove that such a family is genuinely twisted, and which constructions of
+linear algebra survive the passage from single vector spaces to families?
+\end{guiding}
+
+\section{Definitions and first examples}
+
+We begin by fixing the stage. A \emph{topological manifold} is a Hausdorff space
+$X$ in which every point has a neighbourhood homeomorphic to $\R^n$; it is
+\emph{smooth} when the transition functions between charts are smooth. For a
+smooth manifold the tangent space $T_xX$ is obtained from paths $\gamma$ through
+$x$, with $\gamma(0)=x$, by taking velocities
+\[
+\frac{d}{dt}\Big|_{t=0}\gamma(t).
+\]
+
+The total space of all tangent spaces is the first and most important example of
+the structure we are about to define.
+
+\begin{proposition}
+For a smooth $n$-manifold $X$, the set $TX=\bigsqcup_{x\in X}T_xX$ is a smooth
+$2n$-manifold, the projection $\pi\colon TX\to X$ is smooth, each fibre
+$\pi^{-1}(x)=T_xX$ is a real vector space, and each coordinate chart
+$U\subset X$ gives a homeomorphism $U\times\R^n\to\pi^{-1}(U)$ which is linear
+on each fibre.
+\end{proposition}
+
+\begin{definition}[Vector bundle]
+A \emph{real vector bundle} $\xi$ over a topological space $B$ consists of
+
+\begin{enumerate}
+\item a topological space $E=E(\xi)$, the \emph{total space};
+\item a continuous surjection $\pi\colon E\to B$, the \emph{projection};
+\item a real vector space structure on every fibre $F_b(\xi):=\pi^{-1}(b)$,
+\end{enumerate}
+
+subject to the following \emph{local triviality} condition: every $b\in B$ has a
+neighbourhood $U$, an integer $n\ge0$, and a homeomorphism
+\[
+h\colon U\times\R^n\longrightarrow \pi^{-1}(U)
+\]
+such that $x\mapsto h(b',x)$ is a vector space isomorphism
+$\R^n\to F_{b'}(\xi)$ for every $b'\in U$. Such an $h$ is a \emph{local
+trivialization}. If one may take $U=B$ the bundle is \emph{trivial}; if $n$ is
+the same for all $b$ we speak of an \emph{$\R^n$-bundle}, or a bundle of
+\emph{rank} $n$.
+\end{definition}
+
+\begin{example}\label{ex:mobius}
+Three examples to keep in mind throughout.
+
+\begin{enumerate}
+\item The cylinder $S^1\times\R$ is the trivial line bundle over the circle.
+
+\item The \emph{M\"obius bundle}: take $[0,1]\times\R$ and glue
+$(0,t)\sim(1,-t)$. Locally it is a cylinder; globally it is twisted.
+
+\item $TS^2$, an $\R^2$-bundle over $S^2$, which we will prove is non-trivial.
+\end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+\draw[thick] (0,0) rectangle (2.4,1.4);
+\draw[-{Stealth},thick] (0,0.5) -- (0,0.9);
+\draw[-{Stealth},thick] (2.4,0.5) -- (2.4,0.9);
+\node at (1.2,-0.55) {\small $S^1\times\R$: edges glued in the same direction};
+\begin{scope}[xshift=6.4cm]
+\draw[thick] (0,0) rectangle (2.4,1.4);
+\draw[-{Stealth},thick] (0,0.5) -- (0,0.9);
+\draw[-{Stealth},thick] (2.4,0.9) -- (2.4,0.5);
+\node at (1.2,-0.55) {\small M\"obius: $(0,t)\sim(1,-t)$};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+\begin{definition}
+Two vector bundles $\xi,\eta$ over $B$ are \emph{isomorphic}, written
+$\xi\iso\eta$, if there is a homeomorphism $f\colon E(\xi)\to E(\eta)$ commuting
+with the projections and restricting to a linear isomorphism
+$F_b(\xi)\to F_b(\eta)$ on every fibre.
+\end{definition}
+
+\begin{definition}
+For a smooth submanifold $M\subset\R^n$, the \emph{normal bundle} $\nu$ of $M$
+is the subspace of $M\times\R^n$ consisting of the pairs $(x,v)$ with
+$v\perp T_xM$.
+\end{definition}
+
+\begin{definition}
+A \emph{(cross-)section} of $\xi$ is a continuous map $s\colon B\to E(\xi)$ with
+$s(b)\in F_b(\xi)$ for every $b$. It is \emph{nowhere zero} if $s(b)\neq0$ for
+all $b$.
+\end{definition}
+
+Sections are our main probe. Note three things: a section of a tangent bundle is
+exactly a vector field; every bundle has a zero section; and a trivial line
+bundle has a nowhere zero section, obtained by transporting the constant section
+$b\mapsto(b,1)$ through a trivialization.
+
+\section{Sections and non-triviality}
+
+\begin{guiding}
+How can one \emph{prove} that a bundle is non-trivial? The strategy that will
+serve us for the rest of the course: exhibit something that a trivial bundle
+must possess, and show the bundle at hand does not possess it.
+\end{guiding}
+
+\begin{example}[The canonical line bundle]
+Write $\RP^n=\{\{\pm x\}\mid x\in S^n\}$ and let $q\colon S^n\to\RP^n$ be the
+quotient map. The \emph{canonical line bundle} $\gaman\to\RP^n$ is the subspace
+of $\RP^n\times\R^{n+1}$ consisting of pairs $(\{\pm x\},v)$ with $v$ on the
+line through $x$ and $-x$, that is, $v$ a multiple of $x$.
+\end{example}
+
+\begin{theorem}\label{thm:gamma-nontrivial}
+For every $n\ge1$ the bundle $\gaman$ is not trivial.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+A trivial line bundle has a nowhere zero section, so it is enough to prove that
+$\gaman$ has none. Pull a hypothetical section back to the sphere, where the
+bundle becomes trivial: the section becomes an honest real-valued function,
+antisymmetric under the antipodal map, and the intermediate value theorem
+produces a zero.
+\end{strategy}
+
+\step{1} \emph{The pull-back of $\gaman$ to $S^n$ is trivial.} Consider
+\[
+q^*\gaman
+=\big\{(x,v)\in S^n\times\R^{n+1}\ \big|\ v\in\R x\big\},
+\]
+\[
+\Phi\colon q^*\gaman\longrightarrow S^n\times\R,
+\qquad (x,tx)\longmapsto (x,t).
+\]
+The map $\Phi$ is a bijection, linear on fibres, and both it and its inverse
+$(x,t)\mapsto(x,tx)$ are continuous, the former because $t=x\cdot v$ is a
+polynomial in the coordinates.
+
+\step{2} \emph{A section becomes a function.} Suppose $s\colon\RP^n\to E(\gaman)$
+is a section. Then $x\mapsto s(q(x))$ is a section of $q^*\gaman$, so by Step 1
+there is a continuous $t\colon S^n\to\R$ with
+\[
+s\big(q(x)\big)=\big(\{\pm x\},\ t(x)\,x\big)
+\qquad\text{for all }x\in S^n.
+\]
+
+\step{3} \emph{The function is odd.} Since $q(-x)=q(x)$, evaluating the formula
+of Step 2 at $-x$ gives $t(-x)\cdot(-x)=t(x)\cdot x$, whence
+\[
+t(-x)=-t(x).
+\]
+
+\step{4} \emph{Conclusion.} Fix $x\in S^n$ and let $\alpha$ be a path in $S^n$
+from $x$ to $-x$, which exists because $S^n$ is path connected for $n\ge1$. The
+continuous function $t\circ\alpha$ takes the values $t(x)$ and $-t(x)$ at its
+endpoints. If $t(x)=0$ the section already vanishes at $q(x)$; otherwise the
+two values have opposite signs and the intermediate value theorem gives
+$x_0$ on the path with $t(x_0)=0$, so $s(q(x_0))=0$. In either case $s$ is not
+nowhere zero, and $\gaman$ is not trivial.
+\end{proof}
+
+\begin{remark}
+For $n=1$ the total space $E(\gamma^1_1)$ is precisely the M\"obius band of
+Example~\ref{ex:mobius}: the theorem recovers the familiar fact that the
+M\"obius band is twisted.
+\end{remark}
+
+The next lemma is the workhorse that lets us verify isomorphisms fibre by fibre,
+without ever checking continuity of an inverse by hand.
+
+\begin{lemma}\label{lem:fibrewise-iso}
+Let $\xi,\eta$ be vector bundles over $B$ and let $f\colon E(\xi)\to E(\eta)$ be
+continuous, commuting with the projections, and restricting to a linear
+isomorphism $F_b(\xi)\to F_b(\eta)$ for every $b$. Then $f$ is a homeomorphism
+and $\xi\iso\eta$.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+Bijectivity is immediate; the whole content is continuity of $f^{-1}$, which is
+a local question. In local trivializations $f$ becomes multiplication by an
+invertible matrix depending continuously on the base point, and Cramer's rule
+inverts it continuously.
+\end{strategy}
+
+\step{1} \emph{$f$ is a bijection.} It is injective and surjective on each
+fibre by hypothesis, and it preserves fibres, so it is a bijection on total
+spaces.
+
+\step{2} \emph{Reduction to a local statement.} Continuity of $f^{-1}$ may be
+checked on the members of an open cover of $E(\eta)$. Fix $b\in B$ and choose a
+neighbourhood $U$ over which both $\xi$ and $\eta$ are trivial, with
+trivializations
+\[
+g\colon U\times\R^n\to\pi_\xi^{-1}(U),
+\qquad
+h\colon U\times\R^n\to\pi_\eta^{-1}(U).
+\]
+It suffices to prove that $f^{-1}$ is continuous on $\pi_\eta^{-1}(U)$.
+
+\step{3} \emph{$f$ in coordinates.} The composite
+$h^{-1}\circ f\circ g\colon U\times\R^n\to U\times\R^n$ preserves the first
+coordinate and is linear in the second, so it has the form
+\[
+(b',x)\longmapsto\big(b',\,M(b')\,x\big),
+\qquad M(b')\in\GL_n(\R).
+\]
+Each column $M(b')e_i$ is the second component of
+$h^{-1}fg(b',e_i)$, hence depends continuously on $b'$; so all entries of
+$M(b')$ are continuous functions of $b'$.
+
+\step{4} \emph{Inverting continuously.} By Cramer's rule,
+\[
+M(b')^{-1}=\frac{1}{\det M(b')}\,\mathrm{adj}\,M(b'),
+\]
+whose entries are rational functions of the entries of $M(b')$ with non-vanishing
+denominator. Hence $b'\mapsto M(b')^{-1}$ is continuous, and
+$(b',y)\mapsto(b',M(b')^{-1}y)$ is continuous.
+
+\step{5} \emph{Conclusion.} On $\pi_\eta^{-1}(U)$ we have
+$f^{-1}=g\circ\big(h^{-1}fg\big)^{-1}\circ h^{-1}$, a composite of continuous
+maps. Therefore $f^{-1}$ is continuous, $f$ is a homeomorphism, and it is a
+fibrewise linear isomorphism by hypothesis.
+\end{proof}
+
+\begin{definition}
+Sections $s_1,\dots,s_n$ of $\xi$ are \emph{nowhere dependent} if the vectors
+$s_1(b),\dots,s_n(b)$ are linearly independent for every $b\in B$.
+\end{definition}
+
+\begin{theorem}\label{thm:trivial-iff-sections}
+An $\R^n$-bundle $\xi$ is trivial if and only if it admits $n$ nowhere dependent
+sections.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+In both directions the map relating $B\times\R^n$ and $E$ is the obvious one;
+Lemma~\ref{lem:fibrewise-iso} does the work of checking it is an isomorphism.
+\end{strategy}
+
+\step{1} \emph{From sections to a trivialization.} Let $s_1,\dots,s_n$ be
+nowhere dependent and define
+\[
+f\colon B\times\R^n\longrightarrow E(\xi),
+\qquad
+f(b,x)=x_1s_1(b)+\dots+x_ns_n(b).
+\]
+This is continuous, since addition and scalar multiplication are continuous on
+$E$ and each $s_i$ is continuous; it commutes with the projections; and on the
+fibre over $b$ it sends the standard basis to the basis $s_1(b),\dots,s_n(b)$ of
+$F_b(\xi)$, hence is a linear isomorphism there. By
+Lemma~\ref{lem:fibrewise-iso} it is an isomorphism of bundles, so $\xi$ is
+trivial.
+
+\step{2} \emph{From a trivialization to sections.} If
+$h\colon B\times\R^n\to E(\xi)$ is a trivialization, set $s_i(b)=h(b,e_i)$. Each
+$s_i$ is continuous, and for every $b$ the vectors $s_1(b),\dots,s_n(b)$ are the
+image of a basis under a linear isomorphism, hence linearly independent.
+\end{proof}
+
+\begin{corollary}
+$TS^2$ is non-trivial.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:trivial-iff-sections} a trivialization would provide two
+nowhere dependent vector fields on $S^2$, in particular one nowhere zero vector
+field, contradicting the hairy ball theorem.
+\end{proof}
+
+\section{Constructions}
+
+\begin{guiding}
+Which operations of linear algebra --- restriction, pull-back, products, direct
+sums, subspaces, orthogonal complements --- make sense for whole families of
+vector spaces? Essentially all of them, and this flexibility is what makes the
+theory usable.
+\end{guiding}
+
+\begin{construction}[Restriction]
+If $\xi$ is a bundle over $B$ and $\bar B\subset B$, then $\xi|_{\bar B}$, with
+total space $\pi^{-1}(\bar B)$, is a vector bundle over $\bar B$: local
+trivializations restrict. For smooth $\bar B\subset B$ this produces
+$TB|_{\bar B}$.
+\end{construction}
+
+\begin{construction}[Pull-back]\label{con:pullback}
+Given $\xi$ over $B$ and a continuous map $f\colon B_1\to B$, the
+\emph{induced}, or \emph{pull-back}, bundle $f^*\xi$ over $B_1$ has total space
+\[
+E_1(f^*\xi)=\big\{(b,e)\in B_1\times E(\xi)\ \big|\ f(b)=\pi(e)\big\},
+\]
+topologized as a subspace, with projection $(b,e)\mapsto b$ and the vector space
+structure of $F_{f(b)}(\xi)$ on the fibre over $b$. It fits into the square
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+E_1(f^*\xi) \arrow[r,"\hat f"] \arrow[d] & E(\xi) \arrow[d,"\pi"] \\
+B_1 \arrow[r,"f"] & B
+\end{tikzcd}
+\qquad
+\hat f(b,e)=e .
+\]
+\end{construction}
+
+\begin{proposition}
+The pull-back $f^*\xi$ is a vector bundle.
+\end{proposition}
+
+\begin{proof}
+\begin{strategy}
+Only local triviality needs an argument, and a trivialization of $\xi$ near
+$f(b)$ can simply be pulled back over the preimage.
+\end{strategy}
+
+\step{1} Fix $b\in B_1$ and choose a local trivialization
+$h\colon U\times\R^n\to\pi^{-1}(U)$ of $\xi$ with $f(b)\in U$. Put
+$U_1=f^{-1}(U)$, an open neighbourhood of $b$.
+
+\step{2} Define
+\[
+h_1\colon U_1\times\R^n\longrightarrow \pi_1^{-1}(U_1),
+\qquad
+h_1(b_1,x)=\big(b_1,\ h(f(b_1),x)\big).
+\]
+This lands in $E_1$ because $\pi(h(f(b_1),x))=f(b_1)$, and it is continuous
+because $f$ and $h$ are.
+
+\step{3} It is bijective with continuous inverse
+$(b_1,e)\mapsto(b_1,\ \mathrm{pr}_2\,h^{-1}(e))$, and for fixed $b_1$ it is the
+linear isomorphism $x\mapsto h(f(b_1),x)$ onto $F_{f(b_1)}(\xi)$. Hence $h_1$ is
+a local trivialization.
+\end{proof}
+
+\begin{definition}
+A \emph{bundle map} from $\eta$ to $\xi$ is a continuous map
+$g\colon E(\eta)\to E(\xi)$ carrying each fibre $F_b(\eta)$ isomorphically onto
+a fibre $F_{b'}(\xi)$. It induces a map $\bar g\colon B(\eta)\to B(\xi)$,
+$b\mapsto b'$, on base spaces, which is continuous.
+\end{definition}
+
+\begin{lemma}\label{lem:bundle-map-pullback}
+If $g\colon E(\eta)\to E(\xi)$ is a bundle map with base map $\bar g$, then
+$\eta\iso\bar g^{\,*}\xi$.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+There is only one reasonable map to write down; check its fibrewise behaviour
+and appeal to Lemma~\ref{lem:fibrewise-iso}.
+\end{strategy}
+
+\step{1} Define
+\[
+\varphi\colon E(\eta)\longrightarrow E\big(\bar g^{\,*}\xi\big),
+\qquad
+\varphi(e)=\big(\pi_\eta(e),\,g(e)\big).
+\]
+This is well defined: by definition of $\bar g$ we have
+$\pi_\xi(g(e))=\bar g(\pi_\eta(e))$, which is exactly the condition defining the
+pull-back. It is continuous because $\pi_\eta$ and $g$ are, and it commutes with
+the projections to $B(\eta)$.
+
+\step{2} On the fibre over $b$, the map $\varphi$ is
+$e\mapsto(b,g(e))$, and $g$ restricts to an isomorphism
+$F_b(\eta)\to F_{\bar g(b)}(\xi)$, which is by definition the fibre of
+$\bar g^{\,*}\xi$ over $b$.
+
+\step{3} By Lemma~\ref{lem:fibrewise-iso}, $\varphi$ is an isomorphism of
+bundles.
+\end{proof}
+
+\begin{construction}[Products and Whitney sums]
+For $\xi_1,\xi_2$ over $B_1,B_2$ the \emph{Cartesian product}
+$\xi_1\times\xi_2$ over $B_1\times B_2$ has total space
+$E(\xi_1)\times E(\xi_2)$, projection $\pi_1\times\pi_2$ and fibres
+$F_{b_1}(\xi_1)\times F_{b_2}(\xi_2)$; products of local trivializations
+trivialize it. When $B_1=B_2=B$, pulling back along the diagonal
+$d\colon B\to B\times B$, $b\mapsto(b,b)$, gives the \emph{Whitney sum}
+\[
+\xi_1\oplus\xi_2:=d^*(\xi_1\times\xi_2),
+\qquad
+F_b(\xi_1\oplus\xi_2)\iso F_b(\xi_1)\oplus F_b(\xi_2).
+\]
+\end{construction}
+
+\begin{definition}
+Let $\xi,\eta$ be bundles over $B$ with $E(\xi)\subset E(\eta)$. We call $\xi$ a
+\emph{sub-bundle} of $\eta$ if every $F_b(\xi)$ is a vector subspace of
+$F_b(\eta)$.
+\end{definition}
+
+\begin{lemma}\label{lem:internal-sum}
+If $\xi_1,\xi_2$ are sub-bundles of $\eta$ such that
+$F_b(\eta)=F_b(\xi_1)\oplus F_b(\xi_2)$ for every $b$, then
+$\eta\iso\xi_1\oplus\xi_2$.
+\end{lemma}
+
+\begin{proof}
+The map $E(\xi_1\oplus\xi_2)\to E(\eta)$ sending $(b,e_1,e_2)\mapsto e_1+e_2$ is
+continuous, commutes with the projections, and on the fibre over $b$ is the
+canonical isomorphism $F_b(\xi_1)\oplus F_b(\xi_2)\to F_b(\eta)$ provided by the
+hypothesis. Apply Lemma~\ref{lem:fibrewise-iso}.
+\end{proof}
+
+\section{Euclidean vector bundles}
+
+\begin{definition}
+A \emph{Euclidean vector bundle} is a real vector bundle $\xi$ together with a
+continuous function $\mu\colon E(\xi)\to\R$ which is quadratic and positive
+definite on every fibre. Polarization turns $\mu$ into an inner product on each
+fibre, varying continuously with the base point; we call it a \emph{Euclidean
+metric} on $\xi$, or a \emph{Riemannian metric} when $\xi=TM$.
+\end{definition}
+
+The space $\R^n$ carries its standard metric, which restricts to any
+$M\subset\R^n$. On a trivial bundle with a Euclidean metric, Gram--Schmidt --- a
+continuous process --- turns the standard frame into $n$ orthonormal nowhere
+vanishing sections.
+
+\begin{definition}
+Let $\eta$ be a Euclidean bundle of rank $n$ and $\xi\subset\eta$ a sub-bundle
+of rank $k$. The \emph{orthogonal complement} $\xi^\perp\subset\eta$ is the
+union over $b$ of the subspaces $F_b(\xi)^\perp\subset F_b(\eta)$.
+\end{definition}
+
+\begin{theorem}\label{thm:orthogonal-complement}
+$\xi^\perp$ is a vector bundle and $\xi\oplus\xi^\perp\iso\eta$.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Only local triviality of $\xi^\perp$ is at issue, since the second assertion
+then follows from Lemma~\ref{lem:internal-sum}. Near a point, build an
+orthonormal frame of $\eta$ whose first $k$ vectors span $\xi$; the remaining
+$n-k$ vectors then trivialize $\xi^\perp$. Producing such a frame uses two
+standard facts: linear independence is an open condition, and Gram--Schmidt is
+continuous.
+\end{strategy}
+
+\step{1} \emph{Setting up.} Fix $b\in B$ and choose a neighbourhood $U$ over
+which both $\xi$ and $\eta$ are trivial. Using a trivialization of $\xi|_U$ and
+Gram--Schmidt, choose sections $s_1,\dots,s_k$ of $\xi|_U$ which are orthonormal
+at every point of $U$.
+
+\step{2} \emph{Extending the frame at one point.} The vectors
+$s_1(b),\dots,s_k(b)$ are linearly independent in $F_b(\eta)$, so we may complete
+them to a basis
+\[
+s_1(b),\dots,s_k(b),\,v_{k+1},\dots,v_n
+\]
+of $F_b(\eta)$. Using a trivialization of $\eta|_U$, extend the vectors $v_j$ to
+sections $s'_{k+1},\dots,s'_n$ of $\eta|_U$ that are constant in that
+trivialization.
+
+\step{3} \emph{Independence persists.} In the trivialization of $\eta|_U$ the
+determinant of the $n\times n$ matrix with columns
+$s_1,\dots,s_k,s'_{k+1},\dots,s'_n$ is a continuous function of the base point
+which is non-zero at $b$. Hence there is a neighbourhood $V\ni b$, $V\subset U$,
+on which these $n$ sections are nowhere dependent.
+
+\step{4} \emph{Orthonormalizing.} Apply Gram--Schmidt pointwise on $V$ to the
+frame of Step 3. Since the first $k$ vectors are already orthonormal, the
+process leaves them unchanged and produces sections
+$s_1,\dots,s_k,s_{k+1},\dots,s_n$ which form an orthonormal frame of $\eta|_V$
+at every point, depend continuously on the base point, and satisfy
+$\spann(s_1,\dots,s_k)=F_{b'}(\xi)$ for $b'\in V$. Consequently
+$s_{k+1}(b'),\dots,s_n(b')$ is an orthonormal basis of $F_{b'}(\xi)^\perp$.
+
+\step{5} \emph{Local triviality of $\xi^\perp$.} Define
+\[
+V\times\R^{n-k}\longrightarrow \xi^\perp\big|_V,
+\qquad
+(b',x)\longmapsto x_1\,s_{k+1}(b')+\dots+x_{n-k}\,s_n(b').
+\]
+It is continuous, fibrewise a linear isomorphism onto $F_{b'}(\xi)^\perp$ by
+Step 4, and its inverse is $e\mapsto(b',(\langle e,s_{k+j}(b')\rangle)_j)$,
+continuous because the metric is. Hence $\xi^\perp$ is a vector bundle of rank
+$n-k$.
+
+\step{6} \emph{The sum.} By construction
+$F_b(\eta)=F_b(\xi)\oplus F_b(\xi^\perp)$ for every $b$, so
+Lemma~\ref{lem:internal-sum} gives $\xi\oplus\xi^\perp\iso\eta$.
+\end{proof}
+
+\begin{example}\label{ex:normal-bundle}
+If $M\subset N$ are smooth manifolds and $N$ is Riemannian, then $TM$ is a
+sub-bundle of $TN|_M$ and the \emph{normal bundle of $M$ in $N$} is
+$\nu=(TM)^\perp$, so that
+\[
+TN|_M\ \iso\ TM\oplus\nu .
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+\draw[thick] (0,0) .. controls (1.2,0.9) and (2.8,-0.6) .. (4,0.3);
+\node at (4.4,0.3) {$M$};
+\fill (1.9,0.12) circle (1.5pt);
+\draw[-{Stealth}] (1.9,0.12) -- (2.85,-0.14);
+\node[below] at (2.9,-0.08) {\small $T_xM$};
+\draw[-{Stealth}] (1.9,0.12) -- (2.14,1.0);
+\node[right] at (2.12,1.0) {\small $\nu_x$};
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+\begin{definition}
+A smooth map $f\colon M\to N$ is an \emph{immersion} if
+$Df_x\colon T_xM\to T_{f(x)}N$ is injective for every $x$. The figure eight is
+the image of an immersion of $S^1$ in $\R^2$ which is not an embedding.
+\end{definition}
+
+\begin{lemma}\label{lem:normal-immersion}
+For an immersion $f\colon M\to N$ with $N$ Riemannian there is a Whitney sum
+decomposition
+\[
+f^*TN\ \iso\ TM\oplus\nu_f,
+\]
+where $\nu_f$ is called the \emph{normal bundle of the immersion} $f$.
+\end{lemma}
+
+\begin{proof}
+The differential $Df$ realizes $TM$ as a sub-bundle of $f^*TN$: it is fibrewise
+injective by the definition of an immersion, and it is continuous, so its image
+is a sub-bundle. Pulling back the Riemannian metric of $N$ makes $f^*TN$
+Euclidean, and Theorem~\ref{thm:orthogonal-complement} applied to
+$TM\subset f^*TN$ gives $f^*TN\iso TM\oplus(TM)^\perp$; set $\nu_f=(TM)^\perp$.
+\end{proof}
+
+This decomposition is the engine behind many computations to come: it converts
+geometric information --- how $M$ sits inside $N$ --- into bundle-theoretic
+information. In the next lecture we manufacture new bundles from old ones
+functorially, and meet the first characteristic classes.

@@ -1,0 +1,293 @@
+\lecture
+
+\begin{guiding}
+Milnor and Stasheff \emph{define} the Stiefel--Whitney classes by the formula
+$w_i(\xi)=\phi^{-1}\Sq^i\phi(1)$. What are the two ingredients $\Sq^i$ and
+$\phi$, why does the formula satisfy our axioms, and what integral information
+appears along the way?
+\end{guiding}
+
+\section{Steenrod squares}
+
+\begin{definition}
+The $n$-th homotopy group of a space $X$ is $\pi_n(X)=[S^n,X]$. An
+\emph{Eilenberg--MacLane space} $K(G,n)$ is a space with $\pi_n=G$ and all other
+homotopy groups trivial.
+\end{definition}
+
+\begin{theorem}[representability, quoted]
+There is a natural bijection
+\[
+B\colon\langle X,K(G,n)\rangle\longrightarrow H^n(X;G),
+\qquad
+[f]\longmapsto f^*\alpha,
+\]
+where $\langle\ ,\ \rangle$ denotes homotopy classes of maps and
+$\alpha\in H^n(K(G,n);G)$ is a fixed fundamental class.
+\end{theorem}
+
+We sketch the construction of the squares, following the course. Fix
+$\alpha\in H^n(X;\Z_2)$ and let $f_\alpha\colon X\to K(\Z_2,n)$ represent it.
+The cross square $\alpha\times\alpha\in H^{2n}(X\times X;\Z_2)$ is represented by
+a map $f_{\alpha\times\alpha}$, and the twist $T(x,y)=(y,x)$ satisfies
+$T^*(\alpha\times\alpha)=\alpha\times\alpha$ over $\Z_2$, so
+\[
+f_{\alpha\times\alpha}\circ T\ \simeq\ f_{\alpha\times\alpha}.
+\]
+Concatenating such a homotopy with its reverse gives a map
+$\tilde F\colon X\times X\times S^1\to K(\Z_2,2n)$ which is null-homotopic on
+$X\times X\times\{\mathrm{pt}\}$; extending over $D^2$, composing with $T$ and
+gluing produces maps on $X\times X\times S^2$, and iterating yields
+\[
+H\colon X\times X\times S^\infty\longrightarrow K(\Z_2,2n),
+\qquad
+H(x,y,s)=H(y,x,-s).
+\]
+Restricting to the diagonal $x=y$, the symmetry makes $H$ factor through
+$X\times\RP^\infty$, so we obtain a class in $H^{2n}(X\times\RP^\infty;\Z_2)$
+which we expand using $H^*(\RP^\infty;\Z_2)=\Z_2[\omega]$:
+\[
+H_\Delta^*(\alpha)=\sum_{i=0}^{2n}\alpha_i\times\omega^{\,2n-i},
+\qquad \alpha_i\in H^i(X;\Z_2).
+\]
+
+\begin{definition}
+$\Sq^i(\alpha):=\alpha_{n+i}\in H^{n+i}(X;\Z_2)$.
+\end{definition}
+
+\begin{theorem}[properties, quoted]\label{thm:sq-properties}
+The operations
+\[
+\Sq^i\colon H^n(X;\Z_2)\longrightarrow H^{n+i}(X;\Z_2)
+\]
+are natural homomorphisms satisfying
+
+\begin{enumerate}
+\item $\Sq^i(f^*\alpha)=f^*(\Sq^i\alpha)$ and
+$\Sq^i(\alpha+\beta)=\Sq^i\alpha+\Sq^i\beta$;
+\item $\Sq^0=\mathrm{id}$; for $\alpha\in H^n$, $\Sq^n\alpha=\alpha\smile\alpha$
+and $\Sq^i\alpha=0$ for $i>n$;
+\item the Cartan formula
+$\Sq^i(\alpha\smile\beta)=\sum_j\Sq^j\alpha\smile\Sq^{i-j}\beta$.
+\end{enumerate}
+\end{theorem}
+
+The verification of these properties from the construction above is a long
+homotopy-theoretic argument which we do not reproduce; see Milnor--Stasheff
+\S 8 or Steenrod--Epstein.
+
+\section{Orientations}
+
+\begin{definition}
+An \emph{orientation} of a real $n$-dimensional vector space $V$ is an
+equivalence class of bases, two bases being equivalent when the transition
+matrix has positive determinant. There are exactly two such classes.
+\end{definition}
+
+A linearly embedded simplex $\Delta^n\subset V$ with ordered vertices
+$v_0,\dots,v_n$ determines the orientation given by
+$\overrightarrow{v_0v_1},\dots,\overrightarrow{v_{n-1}v_n}$. Writing
+$V_0=V\smallsetminus\{0\}$ and assuming $0$ lies in the interior of the simplex,
+the map $\sigma\colon\Delta^n\to V$ represents a generator of
+$H_n(V,V_0)\iso\Z$: this is the \emph{preferred generator} $\mu_V$ attached to
+the orientation. Dually there is a preferred $u_V\in H^n(V,V_0)$ with
+$\langle u_V,\mu_V\rangle=1$.
+
+\begin{definition}
+An \emph{orientation of a vector bundle} $\xi$ is a compatible choice of
+orientation on every fibre: local trivializations can be chosen orientation
+preserving on each fibre, equivalently all transition matrices have positive
+determinant. It determines a preferred generator $u_F\in H^n(F,F_0)$ on every
+fibre pair.
+\end{definition}
+
+\section{The Thom isomorphism}
+
+\begin{theorem}[Thom isomorphism theorem]\label{thm:thom}
+Let $\pi\colon E\to B$ be a vector bundle of rank $n$, oriented if we use $\Z$
+coefficients; over $\Z_2$ no hypothesis is needed. Write
+$E_0=E\smallsetminus(\text{zero section})$. Then
+
+\begin{enumerate}
+\item there is a unique class $u\in H^n(E,E_0)$, the \emph{Thom class}, whose
+restriction to every fibre pair $(F,F_0)$ is the preferred generator;
+\item $H^i(E,E_0)=0$ for $i<n$, and
+\[
+\phi\colon H^i(B)\ \xrightarrow{\ \pi^*\ }\ H^i(E)
+\ \xrightarrow{\ \smile\, u\ }\ H^{i+n}(E,E_0)
+\]
+is an isomorphism for every $i$.
+\end{enumerate}
+\end{theorem}
+
+The proof occupies the second half of Lecture 8. Here we record the formal
+consequences, which are what the applications actually use.
+
+\begin{theorem}\label{thm:thom-properties}
+Let $u,\phi$ be as above.
+
+\begin{enumerate}
+\item \emph{Pull-back.} If $f\colon\xi\to\xi'$ is an orientation preserving
+bundle map then $f^*u'=u$.
+\item \emph{Naturality.} $\phi_\xi\circ\bar f^{\,*}=f^*\circ\phi_{\xi'}$.
+\item \emph{Cross product.} $u_{\xi\times\xi'}=u_\xi\times u_{\xi'}$ and
+$\phi_{\xi\times\xi'}(a\times b)=\phi_\xi(a)\times\phi_{\xi'}(b)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+All three are consequences of the uniqueness clause in
+Theorem~\ref{thm:thom}: to identify a class in $H^n(E,E_0)$ it is enough to
+check what it restricts to on one fibre pair.
+\end{strategy}
+
+\step{1} \emph{Pull-back.} The map $f$ induces
+$f^*\colon H^n(E',E'_0)\to H^n(E,E_0)$. On a fibre pair, $f$ restricts to an
+orientation preserving isomorphism $(F,F_0)\to(F',F'_0)$, which carries the
+preferred generator to the preferred generator. Hence $f^*u'$ restricts to the
+preferred generator on every fibre of $\xi$, and uniqueness gives $f^*u'=u$.
+
+\step{2} \emph{Naturality.} For $y\in H^*(B')$,
+\[
+f^*\phi_{\xi'}(y)=f^*\big(\pi'^*y\smile u'\big)
+=\pi^*\bar f^{\,*}y\smile f^*u'
+=\pi^*\bar f^{\,*}y\smile u
+=\phi_\xi\big(\bar f^{\,*}y\big),
+\]
+using that $f^*$ is a ring map compatible with the relative cup product,
+$\pi'\circ f=\bar f\circ\pi$, and Step 1.
+
+\step{3} \emph{Cross product.} The class $u_\xi\times u_{\xi'}$ lies in
+$H^{n+m}\big(E\times E',(E\times E')_0\big)$, where
+$(E\times E')_0=E_0\times E'\cup E\times E'_0$. Restrict it to a fibre pair
+$(F^{n+m},F^{n+m}_0)\iso(F^n\times F'^m,\dots)$: by the definition of the cross
+product and the product orientation,
+\[
+\big(u_\xi\times u_{\xi'}\big)\big(\Delta^{n}\times\Delta^{m}\big)
+=u_\xi(\Delta^n)\cdot u_{\xi'}(\Delta^m)=1 ,
+\]
+so it is the preferred generator there. Uniqueness gives
+$u_{\xi\times\xi'}=u_\xi\times u_{\xi'}$, and the formula for $\phi$ follows by
+expanding both sides.
+\end{proof}
+
+\begin{definition}[Stiefel--Whitney classes, intrinsic definition]
+For an $\R^n$-bundle $\xi$ with $\Z_2$ Thom class $u=\phi(1)$, put
+\[
+w_i(\xi):=\phi^{-1}\big(\Sq^i u\big).
+\]
+\end{definition}
+
+\begin{proposition}
+These classes satisfy the axioms of Definition~\ref{def:sw-axioms}, hence agree
+with the classes constructed in Lecture 5.
+\end{proposition}
+
+\begin{proof}
+\begin{strategy}
+Match each axiom with the corresponding property of $\Sq$ from
+Theorem~\ref{thm:sq-properties} and of $\phi$ from
+Theorem~\ref{thm:thom-properties}; then invoke the uniqueness theorem of
+Lecture 5.
+\end{strategy}
+
+\step{1} \emph{Rank.} $\Sq^0u=u$ gives $w_0=1$. Since $u$ has degree $n$,
+property (2) gives $\Sq^iu=0$ for $i>n$, so $w_i=0$ for $i>n$.
+
+\step{2} \emph{Naturality.} For a bundle map $f$ with base map $\bar f$, using
+naturality of $\Sq$ and Theorem~\ref{thm:thom-properties},
+\[
+w_i(\xi)=\phi_\xi^{-1}\Sq^i u=\phi_\xi^{-1}\Sq^i f^*u'
+=\phi_\xi^{-1}f^*\Sq^iu'=\bar f^{\,*}\phi_{\xi'}^{-1}\Sq^iu'
+=\bar f^{\,*}w_i(\xi').
+\]
+
+\step{3} \emph{Whitney formula.} By Theorem~\ref{thm:thom-properties}(3),
+$u_{\xi\times\xi'}=u_\xi\times u_{\xi'}$, and the Cartan formula applied to a
+cross product gives
+$\Sq^i(u_\xi\times u_{\xi'})=\sum_j\Sq^ju_\xi\times\Sq^{i-j}u_{\xi'}$. Applying
+$\phi^{-1}_{\xi\times\xi'}$ and using the product formula for $\phi$ yields
+$w_i(\xi\times\xi')=\sum_j w_j(\xi)\times w_{i-j}(\xi')$; pulling back along the
+diagonal converts this into the Whitney formula for $\xi\oplus\xi'$.
+
+\step{4} \emph{Normalization.} For $\gamma^1_1\to\RP^1$ the pair
+$(E,E_0)$ is the M\"obius band relative to its boundary; there
+$\Sq^1u=u\smile u\neq0$, as computed in Lecture 8, so $w_1(\gamma^1_1)\neq0$.
+
+\step{5} By the uniqueness theorem of Lecture 5, these classes coincide with
+$f_\xi^*\tilde\sigma_i$.
+\end{proof}
+
+\section{The Euler class}
+
+\begin{guiding}
+The Thom class lives in the relative group $H^n(E,E_0)$. What invariant of the
+base do we obtain by simply forgetting that it is relative?
+\end{guiding}
+
+\begin{definition}
+Let $\xi$ be an oriented $\R^n$-bundle over $B$ with Thom class $u$. The
+\emph{Euler class} is
+\[
+e(\xi):=(\pi^*)^{-1}\,i^*u\ \in\ H^n(B;\Z),
+\]
+where $i^*\colon H^n(E,E_0)\to H^n(E)$ forgets the pair and
+$\pi^*\colon H^*(B)\to H^*(E)$ is an isomorphism because $\pi$ is a homotopy
+equivalence.
+\end{definition}
+
+\begin{theorem}\label{thm:euler-properties}
+The Euler class has the following properties.
+
+\begin{enumerate}
+\item \emph{Naturality:} $\bar f^{\,*}e(\xi')=e(\xi)$ for an orientation
+preserving bundle map $f\colon\xi\to\xi'$.
+\item If $\xi$ is trivial then $e(\xi)=0$.
+\item Reversing the orientation of $\xi$ changes the sign of $e(\xi)$;
+consequently $2e(\xi)=0$ when $n$ is odd.
+\item $e(\xi)\bmod2=w_n(\xi)$.
+\item $e(\xi\times\xi')=e(\xi)\times e(\xi')$ and
+$e(\xi\oplus\xi')=e(\xi)\smile e(\xi')$.
+\item If $\xi$ has a nowhere zero section then $e(\xi)=0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\step{1} Apply $i^*$ to $f^*u'=u$ and use
+$\pi^*\circ\bar f^{\,*}=f^*\circ\pi'^*$.
+
+\step{2} A trivial bundle admits a bundle map to the bundle
+$\mathrm{pt}\times\R^n$ over a point, whose Euler class lies in
+$H^{n}(\mathrm{pt})=0$ for $n>0$; now use (1).
+
+\step{3} The map $(x,v)\mapsto(x,-v)$ is a bundle map over the identity which
+reverses the orientation of every fibre when $n$ is odd, hence carries $u$ to
+$-u$ and $e$ to $-e$. Naturality then gives $e(\xi)=-e(\xi)$.
+
+\step{4} Over $\Z_2$ we have $i^*u=\phi^{-1}$ applied to $u\smile u=\Sq^nu$ up
+to the identification $\phi$, so
+\[
+e(\xi)\bmod2=\phi^{-1}\big(u\smile u\big)=\phi^{-1}\Sq^n\phi(1)=w_n(\xi).
+\]
+
+\step{5} By Theorem~\ref{thm:thom-properties}(3),
+$u_{\xi\times\xi'}=u_\xi\times u_{\xi'}$; applying $i^*$, which is compatible
+with cross products, and then $(\pi^*)^{-1}$, gives
+$e(\xi\times\xi')=e(\xi)\times e(\xi')$. Since
+$\xi\oplus\xi'=\Delta^*(\xi\times\xi')$ and
+$\Delta^*(x\times y)=x\smile y$, the second formula follows from (1).
+
+\step{6} A nowhere zero section spans a trivial line sub-bundle $\ell\subset\xi$;
+with a metric, $\xi\iso\ell\oplus\ell^{\perp}$, so by (5) and (2),
+$e(\xi)=e(\ell)\smile e(\ell^\perp)=0$.
+\end{proof}
+
+\begin{corollary}
+If $2e(\xi)\neq0$ then $\xi$ does not split off an oriented summand of odd rank;
+in particular it has no nowhere zero section.
+\end{corollary}
+
+In Lecture 8 we compute Euler classes of the canonical bundles, obtain the
+universal identity $e(\gamma^n)=\tilde\sigma_n$, and then prove
+Theorem~\ref{thm:thom}.

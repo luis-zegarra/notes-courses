@@ -1,0 +1,322 @@
+\lecture
+
+\begin{guiding}
+One axiom is still owed: the Whitney product formula. The universal way to prove
+an identity between characteristic classes is to verify it on universal
+examples, where cohomology is a polynomial ring and everything reduces to
+symmetric functions. The same circle of ideas then produces the \emph{Chern
+classes} of complex bundles, with integer rather than mod-$2$ coefficients.
+\end{guiding}
+
+\section{Proof of the Whitney product formula}
+
+Recall from Lecture 5 that $H^*(G_n;\Z_2)=\Z_2[\tilde\sigma_1,\dots,
+\tilde\sigma_n]$, embedded by $h_n^*$ as the symmetric polynomials in
+$\Z_2[a_1,\dots,a_n]$, and that $w_i(E)=f_E^*(\tilde\sigma_i)$.
+
+Write $G=G_n$, $G'=G_{n'}$, $G''=G_{n+n'}$, and let
+\[
+F\colon G\times G'\longrightarrow G''
+\]
+classify $p_1^*\gamma^n\oplus p_2^*\gamma^{n'}$, where $p_1,p_2$ are the two
+projections.
+
+\begin{lemma}\label{lem:F-star}
+$\displaystyle F^*(\tilde\sigma_i)
+=\sum_{s=0}^{i}\tilde\sigma'_s\times\tilde\sigma''_{i-s}$,
+where $\tilde\sigma'$ and $\tilde\sigma''$ denote the generators of $H^*(G)$ and
+$H^*(G')$.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+Both sides live in $H^*(G\times G')$, where $(h_n\times h_{n'})^*$ is injective;
+so it is enough to compare their images in a polynomial ring. There the identity
+becomes the classical decomposition of an elementary symmetric function in
+$n+n'$ variables into products of elementary symmetric functions in the two
+groups of variables.
+\end{strategy}
+
+\step{1} \emph{A homotopy commutative square.} Let
+\[
+\tilde F\colon(\RP^\infty)^n\times(\RP^\infty)^{n'}
+\longrightarrow(\RP^\infty)^{n+n'}
+\]
+be the identity under the evident identification. Both composites in
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+(\RP^\infty)^n\times(\RP^\infty)^{n'}
+\arrow[r,"\tilde F"] \arrow[d,"h_n\times h_{n'}"']
+& (\RP^\infty)^{n+n'} \arrow[d,"h_{n+n'}"]\\
+G\times G' \arrow[r,"F"] & G''
+\end{tikzcd}
+\]
+classify $\gamma^1\oplus\dots\oplus\gamma^1$ with $n+n'$ summands, hence are
+homotopic by Theorem~\ref{thm:universal}. Therefore
+\[
+(h_n\times h_{n'})^*\circ F^* \;=\; \tilde F^*\circ h_{n+n'}^* .
+\]
+
+\step{2} \emph{Computing the right-hand side.} By definition we have
+$h_{n+n'}^*(\tilde\sigma_i)=\sigma_i(a_1,\dots,a_{n+n'})$. Under $\tilde F^*$
+the first $n$ variables become the variables $a'_1,\dots,a'_n$ of the first
+factor, and the last $n'$ become $a''_1,\dots,a''_{n'}$. Sorting a monomial
+$a_{j_1}\cdots a_{j_i}$ by how many of its indices are at most $n$, we obtain
+\[
+\sigma_i(a',a'')=\sum_{s=0}^{i}\sigma_s(a')\,\sigma_{i-s}(a'').
+\]
+
+\step{3} \emph{Computing the left-hand side.} By K\"unneth,
+$(h_n\times h_{n'})^*(x\times y)=h_n^*(x)\times h_{n'}^*(y)$, so
+\[
+(h_n\times h_{n'})^*\Big(\sum_s\tilde\sigma'_s\times\tilde\sigma''_{i-s}\Big)
+=\sum_s\sigma_s(a')\,\sigma_{i-s}(a'').
+\]
+
+\step{4} \emph{Conclusion.} The two expressions agree, and
+$(h_n\times h_{n'})^*$ is injective, being a tensor product of injective maps
+between free modules (Theorem~\ref{thm:HGn} and K\"unneth). Hence
+$F^*(\tilde\sigma_i)=\sum_s\tilde\sigma'_s\times\tilde\sigma''_{i-s}$.
+\end{proof}
+
+\begin{theorem}[Whitney product formula]\label{thm:whitney}
+For vector bundles $E,E'$ over the same base $B$,
+\[
+w_i(E\oplus E')=\sum_{s=0}^{i}w_s(E)\smile w_{i-s}(E').
+\]
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Write the classifying map of $E\oplus E'$ as the composite of $F$ with
+$f_E\times f_{E'}$ and the diagonal, then feed in Lemma~\ref{lem:F-star} and
+convert cross products into cup products.
+\end{strategy}
+
+\step{1} \emph{The classifying map of the sum.} Let $d\colon B\to B\times B$ be
+the diagonal. The bundle $(f_E\times f_{E'})^*\big(p_1^*\gamma^n\oplus
+p_2^*\gamma^{n'}\big)$ over $B\times B$ restricts along $d$ to $E\oplus E'$, so
+$F\circ(f_E\times f_{E'})\circ d$ is a classifying map for $E\oplus E'$.
+
+\step{2} \emph{Applying the lemma.}
+\[
+w_i(E\oplus E')
+=d^*(f_E\times f_{E'})^*F^*(\tilde\sigma_i)
+=d^*(f_E\times f_{E'})^*\Big(\sum_s\tilde\sigma'_s\times\tilde\sigma''_{i-s}\Big).
+\]
+
+\step{3} \emph{Naturality of the cross product.}
+$(f_E\times f_{E'})^*(x\times y)=f_E^*x\times f_{E'}^*y$, so the expression
+becomes $d^*\big(\sum_s w_s(E)\times w_{i-s}(E')\big)$.
+
+\step{4} \emph{Diagonal.} Finally $d^*(x\times y)=x\smile y$, which gives the
+formula.
+\end{proof}
+
+This completes the axiomatic circle begun in Lecture 2: the Stiefel--Whitney
+classes exist, satisfy the four axioms, and are the only classes that do.
+
+\section{Complex vector bundles}
+
+\begin{guiding}
+What changes when the fibres are complex vector spaces? Two things, both to our
+advantage: orientations come for free, and the relevant Grassmannians have cells
+only in even dimensions, so the theory can be run over $\Z$ instead of $\Z_2$.
+\end{guiding}
+
+\begin{definition}
+A \emph{complex vector bundle} of rank $n$ over $B$ is a map $\pi\colon E\to B$
+in which every fibre carries the structure of a complex vector space and local
+trivializations $\pi^{-1}(U)\iso U\times\C^n$ can be chosen complex linear on
+each fibre. All the constructions of Lecture 1 --- pull-back, Whitney sum,
+sub-bundles --- carry over verbatim.
+\end{definition}
+
+\begin{remark}
+A complex bundle of rank $n$ is in particular a real bundle of rank $2n$.
+Conversely a real $\R^{2n}$-bundle $E$ can be promoted to a complex bundle
+exactly when it admits a \emph{complex structure}: a fibrewise linear
+$J\colon E\to E$ with $J(J(v))=-v$, scalar multiplication being defined by
+$(a+ib)v=av+bJv$. For instance $TS^2$ admits one, rotation by a quarter turn,
+whereas the tangent bundles of most even-dimensional spheres do not.
+\end{remark}
+
+\begin{definition}
+A \emph{Hermitian metric} on a complex bundle is a Euclidean metric on the
+underlying real bundle satisfying $|iv|=|v|$. It determines a Hermitian inner
+product $\langle\cdot,\cdot\rangle$, complex linear in the first variable and
+conjugate linear in the second, and hence a notion of orthogonality. If
+$L\subset E$ is a complex sub-bundle then $L^\perp$ is again complex and
+$L\oplus L^\perp\iso E$ as complex bundles, by the argument of
+Theorem~\ref{thm:orthogonal-complement} applied with complex scalars.
+\end{definition}
+
+\begin{definition}
+The \emph{complex Grassmannian} $G_n(\C^m)$ is the space of complex $n$-planes
+in $\C^m$, topologized as the quotient of the complex Stiefel manifold
+$V_n(\C^m)$ of complex $n$-frames. It is a compact manifold of real dimension
+$2n(m-n)$, and $G_1(\C^m)=\CP^{m-1}$. The tautological bundle
+$\gamma_n\to G_n(\C^m)$, the limit $G_n(\C^\infty)$ and its tautological bundle
+are defined exactly as in the real case, and the classification theorem holds
+with the same proof: complex $n$-bundles over a paracompact base $B$ correspond
+to homotopy classes $[B,G_n(\C^\infty)]$.
+\end{definition}
+
+\begin{theorem}\label{thm:complex-cells}
+$G_n(\C^m)$ is a CW complex with one cell of real dimension
+$2\sum_i(\sigma_i-i)$ for each Schubert symbol $\sigma$. All cells are
+even-dimensional, so the cellular boundary operator vanishes and
+\[
+H^{2r}\big(G_n(\C^\infty);\Z\big)\iso\Z^{\,p_n(r)},
+\qquad
+H^{\mathrm{odd}}\big(G_n(\C^\infty);\Z\big)=0,
+\]
+where $p_n(r)$ is the number of partitions of $r$ into at most $n$ parts.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Repeat the Schubert analysis over $\C$. The only change is in the normalization
+of a basis vector: a complex line contains a whole circle of unit vectors rather
+than two, so requiring the last non-zero coordinate to be real and positive cuts
+the relevant sphere down by one further dimension. The rotation argument of
+Lecture 5 goes through unchanged, and the parity of the resulting dimensions
+makes the chain complex collapse.
+\end{strategy}
+
+\step{1} \emph{Symbols.} For $X\in G_n(\C^m)$ the sequence
+$\dim_\C(X\cap\C^k)$ increases from $0$ to $n$ in steps of at most $1$, by the
+same exactness argument as in Claim~\ref{claim:jumps}, so it determines a symbol
+$1\le\sigma_1<\dots<\sigma_n\le m$ and a partition of $G_n(\C^m)$ into sets
+$e(\sigma)$.
+
+\step{2} \emph{Normalized bases.} Put
+\[
+H^{\sigma_i}_\C=\big\{(x_1,\dots,x_{\sigma_i},0,\dots,0)\in\C^m
+\ \big|\ x_{\sigma_i}\in\R_{>0}\big\}.
+\]
+Given $x$ in a complex line, the vectors $e^{i\theta}x$ all have the same norm,
+so there is a unique unit vector on the line whose $\sigma_i$-th coordinate is
+real and positive. Repeating the induction of Claim~\ref{claim:half-space} with
+complex orthogonality gives: $X\in e(\sigma)$ if and only if $X$ has a unique
+unitary basis $(x_1,\dots,x_n)$ with $x_i\in H^{\sigma_i}_\C$.
+
+\step{3} \emph{Cell dimensions.} For $n=1$ the closure of
+$H^{\sigma_1}_\C\cap S^{2\sigma_1-1}$ consists of the unit vectors of
+$\C^{\sigma_1}$ with last coordinate in $\R_{\ge0}$; this is a closed cell of
+real dimension $2\sigma_1-2$, since the last coordinate contributes one real
+parameter instead of two. For the inductive step, the space of admissible new
+vectors is the set of unit vectors in $\bar H^{\sigma_{n+1}}_\C$ orthogonal to
+$n$ fixed ones, a closed cell of real dimension
+$2(\sigma_{n+1}-n)-2$; the map $\Psi$ built from unitary rotations
+$T(u,v)$ as in Lemma~\ref{lem:closed-cell} identifies the product with
+$\bar e'(\sigma_1,\dots,\sigma_{n+1})$. Adding up gives real dimension
+$2\sum_i(\sigma_i-i)$.
+
+\step{4} \emph{Boundaries.} The argument of
+Theorem~\ref{thm:cw-grassmannian} shows that the boundary of a cell lies in
+cells of strictly smaller dimension, so we do obtain a CW structure.
+
+\step{5} \emph{Cohomology.} Since all cells have even dimension, the cellular
+chain complex has zero groups in odd degrees, hence all differentials vanish and
+$H_{2r}$ is free on the $2r$-cells. Counting cells as in Lecture 5 gives
+$p_n(r)$ of them, and universal coefficients gives the statement for
+cohomology.
+\end{proof}
+
+\section{Chern classes}
+
+By K\"unneth, $H^*\big((\CP^\infty)^n;\Z\big)=\Z[a_1,\dots,a_n]$ with $a_i$ of
+degree $2$.
+
+\begin{theorem}\label{thm:HGnC}
+Let $h_n\colon(\CP^\infty)^n\to G_n(\C^\infty)$ classify
+$\gamma_1\oplus\dots\oplus\gamma_1$. Then $h_n^*$ is injective with image the
+symmetric polynomials, so
+\[
+H^*\big(G_n(\C^\infty);\Z\big)=\Z\big[\tilde\sigma_1,\dots,\tilde\sigma_n\big],
+\qquad \tilde\sigma_i\in H^{2i}.
+\]
+\end{theorem}
+
+\begin{proof}
+The proof of Theorem~\ref{thm:HGn} applies word for word, with $\RP^\infty$
+replaced by $\CP^\infty$, degrees doubled, and $\Z_2$ replaced by $\Z$. The
+three ingredients are available: the splitting principle over $\C$
+(Remark~\ref{rem:complex-splitting} below), the invariance of the image under
+permutation of the factors, and the cell count of
+Theorem~\ref{thm:complex-cells}, which here is an equality without any imported
+input, since the chain complex has no odd cells and hence zero differentials.
+\end{proof}
+
+\begin{definition}[Chern classes]
+For a complex bundle $E\to B$ of rank $n$ with classifying map
+$f_E\colon B\to G_n(\C^\infty)$, set
+\[
+c_i(E):=f_E^*\big(\tilde\sigma_i\big)\ \in\ H^{2i}(B;\Z),
+\qquad c_0=1,\qquad c_i=0\ \text{ for } i>n .
+\]
+The \emph{total Chern class} is $c(E)=1+c_1(E)+\dots+c_n(E)$.
+\end{definition}
+
+\begin{theorem}
+The Chern classes are the unique family of classes satisfying:
+
+\begin{enumerate}
+\item[(C1)] $c_0(E)=1$ and $c_i(E)=0$ for $i>\rk_\C E$;
+\item[(C2)] $c_i(f^*E)=f^*c_i(E)$;
+\item[(C3)] $c_k(E_1\oplus E_2)=\sum_{j}c_j(E_1)\smile c_{k-j}(E_2)$;
+\item[(C4)] $c_1(\gamma_1\to\CP^1)$ is a generator of $H^2(\CP^1;\Z)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Every step of Lectures 5 and 6 transposes: (C1) and (C2) hold by definition and
+by homotopy invariance of classifying maps; (C3) is proved exactly as
+Theorem~\ref{thm:whitney}, using the complex analogue of
+Lemma~\ref{lem:F-star}, whose proof is the same decomposition of elementary
+symmetric functions; and (C4) holds because $\tilde\sigma_1$ restricts to the
+generator on $G_1(\C^\infty)=\CP^\infty$ and then to $\CP^1$. Uniqueness follows
+as before: naturality reduces to the universal bundle, the complex splitting
+principle to sums of line bundles, (C3) to a single line bundle, and (C4) pins
+that case down.
+\end{proof}
+
+\begin{lemma}\label{lem:pi-star-injective}
+Let $E\to B$ be a complex bundle of rank $n$ over a base with a finite
+trivializing cover, and let $\mathbb P(E)\to B$ be its complex projectivization,
+with fibres $\CP^{n-1}$. Then
+\[
+H^*\big(\mathbb P(E);\Z\big)\iso H^*(B;\Z)\otimes H^*(\CP^{n-1};\Z),
+\]
+and in particular $H^*(B;\Z)\to H^*(\mathbb P(E);\Z)$ is injective.
+\end{lemma}
+
+\begin{proof}
+Identical to Lemma~\ref{lem:PE-injective}. The tautological complex line bundle
+$\gamma$ over $\mathbb P(E)$ restricts on each fibre to the canonical bundle of
+$\CP^{n-1}$, so its classifying map
+$f\colon\mathbb P(E)\to\CP^\infty$ restricts on the fibre to a map homotopic to
+the standard inclusion, which is an isomorphism on $H^{2k}$ for $k\le n-1$.
+Setting $s(a^k)=f^*(a^k)$ gives $i_F^*\circ s=\mathrm{id}$, and
+Theorem~\ref{thm:leray-hirsch} applies over $\Lambda=\Z$, since
+$H^*(\CP^{n-1};\Z)$ is free of finite rank.
+\end{proof}
+
+\begin{remark}\label{rem:complex-splitting}
+Consequently every complex bundle admits a splitting map: on $\mathbb P(E)$ the
+tautological line bundle is a complex sub-bundle of $p^*E$, and a Hermitian
+metric splits $p^*E\iso\gamma\oplus\gamma^\perp$ with $\gamma^\perp$ of rank
+$n-1$; iterate as in Corollary~\ref{cor:splitting}. Formally one writes
+\[
+c(E)=\prod_{i=1}^{n}(1+x_i),
+\qquad x_i=c_1(L_i),
+\]
+and calls the $x_i$ the \emph{Chern roots} of $E$. Every identity between Chern
+classes may be verified on these roots.
+\end{remark}
+
+In the next lecture we change viewpoint entirely and construct the
+Stiefel--Whitney classes a second time, intrinsically, out of Steenrod squares
+and the Thom isomorphism. That route also hands us the Euler class, the integral
+refinement of the top class.

@@ -1,0 +1,332 @@
+\lecture
+
+\begin{guiding}
+We finish the diagonal computation: the dual class of the diagonal is a sum over
+dual bases, and evaluating it turns $e(TM)$ into the Euler characteristic. Then
+we introduce the last family of characteristic classes, the Pontryagin classes
+of a real bundle.
+\end{guiding}
+
+Throughout $M$ is a closed $n$-manifold with fundamental class $\mu$;
+coefficients are a field, always admissible over $\Z_2$ and, when $M$ is
+oriented, over any field.
+
+\section{The local computation}
+
+\begin{proof}[Proof of Lemma~\ref{lem:u-over-mu}]
+\begin{strategy}
+The class $u''/\mu$ lies in $H^0(M)$, so it is determined by its value at each
+point $x$. Naturality of the slant product turns that value into the evaluation
+of the dual class against the local fundamental class at $x$, and the
+fibre-restriction property of the Thom class makes it $1$.
+\end{strategy}
+
+\step{1} \emph{Reduction to a point.} Fix $x\in M$ and let
+$i_x\colon M\to M\times M$, $y\mapsto(x,y)$. Naturality of the slant product in
+the first variable gives that the value of $u''/\mu$ at $x$ is
+\[
+\big(i_x^*u''\big)/\mu=\big\langle i_x^*u'',\ \mu\big\rangle ,
+\]
+where we use that $i_x^*u''\in H^n(M)$ and that slanting an $n$-class with the
+$n$-cycle $\mu$ is the Kronecker pairing.
+
+\step{2} \emph{Passing to the relative class.} Let
+$j_x\colon(M,M\smallsetminus x)\to(M\times M,\ M\times M\smallsetminus\Delta)$ be
+$y\mapsto(x,y)$; it is well defined, since $(x,y)\in\Delta$ forces $y=x$. Then
+$i_x^*u''=i_M^*j_x^*u'$, where $i_M\colon M\to(M,M\smallsetminus x)$, so with
+$\mu_x\in H_n(M,M\smallsetminus x)$ the image of $\mu$,
+\[
+\big\langle i_x^*u'',\mu\big\rangle
+=\big\langle j_x^*u',\ \mu_x\big\rangle .
+\]
+
+\step{3} \emph{Identifying $j_x^*u'$.} Under the exponential chart of
+Theorem~\ref{thm:tnt}, the map $j_x$ corresponds to the inclusion of the fibre
+of $N(\Delta)$ over $(x,x)$:
+\[
+\big(N_x,\ N_x\smallsetminus0\big)
+\xrightarrow{\ \mathrm{Exp}\ }
+\big(M,\ M\smallsetminus x\big)
+\xrightarrow{\ j_x\ }
+\big(M\times M,\ M\times M\smallsetminus\Delta\big),
+\]
+the first map being a homeomorphism onto a neighbourhood, and the composite
+being homotopic to $v\mapsto(x,\exp_x v)$. Since $u'$ comes from the Thom class,
+its restriction to a fibre pair is the preferred generator; hence $j_x^*u'$ is
+the preferred generator of $H^n(T_xM,T_xM\smallsetminus0)$.
+
+\step{4} \emph{Conclusion.} The correspondence between orientations of $T_xM$
+and local orientations of $M$ is exactly the one induced by $\exp$, so $\mu_x$
+corresponds to the preferred generator in homology and
+$\langle j_x^*u',\mu_x\rangle=1$. Therefore $u''/\mu$ takes the value $1$ at
+every $x$, that is, $u''/\mu=1$.
+\end{proof}
+
+\section{The duality theorem and the Euler characteristic}
+
+\begin{theorem}[Poincar\'e duality, quoted]\label{thm:duality}
+For $M$ closed, and with field coefficients (any field if $M$ is oriented,
+$\Z_2$ otherwise), the cup product pairing
+$H^i(M)\otimes H^{n-i}(M)\to\Lambda$, $(x,y)\mapsto\langle x\smile y,\mu\rangle$,
+is non-degenerate. Equivalently, every homogeneous basis $b_1,\dots,b_r$ of
+$H^*(M)$ admits a \emph{dual basis} $b_1^\#,\dots,b_r^\#$ with
+\[
+\big\langle b_i\smile b_j^{\#},\ \mu\big\rangle=\delta_{ij}.
+\]
+\end{theorem}
+
+\begin{theorem}\label{claim:diag-class-formula}
+In terms of such bases the dual class of the diagonal is
+\[
+u''=\sum_{i=1}^{r}(-1)^{\dim b_i}\ b_i\times b_i^{\#}.
+\]
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Expand $u''$ in the K\"unneth basis with unknown coefficients, then exploit the
+two facts proved so far: $u''$ slants to $1$ against $\mu$, and multiplying by
+$a\times1$ or $1\times a$ gives the same answer. Evaluating on basis elements
+identifies the unknowns as the dual basis.
+\end{strategy}
+
+\step{1} \emph{Expansion.} By K\"unneth,
+$H^n(M\times M)=\bigoplus_i H^{\dim b_i}(M)\otimes H^{n-\dim b_i}(M)$, so we may
+write
+\[
+u''=\sum_{i=1}^{r} b_i\times c_i,
+\qquad \dim b_i+\dim c_i=n .
+\]
+
+\step{2} \emph{A formula for every class.} Let $a\in H^*(M)$. Using
+Lemma~\ref{lem:slant-identity}, then Lemma~\ref{lem:ax1}, then
+Lemma~\ref{lem:u-over-mu},
+\[
+a=a\smile\big(u''/\mu\big)
+=\big((a\times1)\smile u''\big)\big/\mu
+=\big((1\times a)\smile u''\big)\big/\mu .
+\]
+
+\step{3} \emph{Expanding the right-hand side.} Substituting the expansion of
+$u''$ and moving $a$ past $b_i$, which costs the Koszul sign
+$(-1)^{\dim a\,\dim b_i}$,
+\[
+\big((1\times a)\smile u''\big)\big/\mu
+=\sum_{i}(-1)^{\dim a\,\dim b_i}\,\big(b_i\times(a\smile c_i)\big)\big/\mu
+\]
+\[
+=\sum_{i}(-1)^{\dim a\,\dim b_i}\,
+\big\langle a\smile c_i,\ \mu\big\rangle\ b_i .
+\]
+
+\step{4} \emph{Identification.} Take $a=b_j$. Comparing with Step 2, which says
+the sum equals $b_j$, and using that the $b_i$ are a basis,
+\[
+(-1)^{\dim b_j\dim b_i}\big\langle b_j\smile c_i,\mu\big\rangle=\delta_{ij}.
+\]
+For $i=j$ the sign is $(-1)^{(\dim b_i)^2}=(-1)^{\dim b_i}$, so
+$\langle b_i\smile c_i,\mu\rangle=(-1)^{\dim b_i}$, while for $i\neq j$ the
+pairing vanishes. Comparing with Theorem~\ref{thm:duality} gives
+$c_i=(-1)^{\dim b_i}b_i^{\#}$.
+\end{proof}
+
+\begin{theorem}\label{thm:euler-char}
+For $M$ closed and oriented,
+\[
+\big\langle e(TM),\ \mu\big\rangle=\chi(M)=\sum_k(-1)^k\dim H^k(M);
+\]
+without orientation, $\langle w_n(TM),\mu\rangle\equiv\chi(M)\bmod 2$.
+\end{theorem}
+
+\begin{proof}
+By Corollary~\ref{cor:diagonal-euler} and
+Theorem~\ref{claim:diag-class-formula},
+\[
+e(TM)=\Delta^*u''=\sum_i(-1)^{\dim b_i}\,\Delta^*\big(b_i\times b_i^\#\big)
+=\sum_i(-1)^{\dim b_i}\,b_i\smile b_i^{\#} .
+\]
+Evaluating on $\mu$ and using $\langle b_i\smile b_i^\#,\mu\rangle=1$,
+\[
+\big\langle e(TM),\mu\big\rangle=\sum_i(-1)^{\dim b_i}
+=\sum_k(-1)^k\dim H^k(M)=\chi(M),
+\]
+since the $b_i$ of a given dimension $k$ form a basis of $H^k(M)$.
+\end{proof}
+
+\begin{example}
+$\chi(S^2)=2$, so $e(TS^2)\neq0$: a third proof that $TS^2$ is non-trivial, and
+the statement underlying the hairy ball theorem. For odd-dimensional $M$ we have
+$\chi(M)=0$, consistent with $2e(\xi)=0$ in odd rank.
+\end{example}
+
+\section{Chern classes through the Gysin sequence}
+
+We describe the inductive construction of Chern classes used in
+Milnor--Stasheff, an alternative to the Grassmannian route of Lecture 6.
+
+\begin{theorem}[Gysin sequence]\label{thm:gysin}
+For an oriented $\R^n$-bundle $\xi$ with total space $E\to B$ there is a long
+exact sequence with integer coefficients
+\[
+\cdots\to H^{i-n}(B)\ \xrightarrow{\ \smile e\ }\ H^{i}(B)
+\ \xrightarrow{\ \pi_0^*\ }\ H^{i}(E_0)\ \to\ H^{i-n+1}(B)\to\cdots
+\]
+\end{theorem}
+
+\begin{proof}
+Start from the long exact sequence of the pair $(E,E_0)$ and substitute
+$H^{j}(E,E_0)\iso H^{j-n}(B)$, by the Thom isomorphism, and
+$H^j(E)\iso H^j(B)$, by homotopy invariance. The map
+$H^{j-n}(B)\to H^{j}(B)$ so obtained is computed by
+\[
+i^*\phi(y)=i^*\big(\pi^*y\smile u\big)=\pi^*y\smile i^*u=\pi^*\big(y\smile e\big),
+\]
+so under the identification it becomes $\smile e$.
+\end{proof}
+
+\begin{construction}[Chern classes, inductively]
+Let $E\to B$ be a complex bundle of rank $n$, with its canonical orientation.
+Set $c_n(E):=e(E)$. Over the sphere bundle $\pi_0\colon S(E)=E_0\to B$ there is
+a tautological complex line sub-bundle $L\subset\pi_0^*E$, spanned at a point
+$(x,v)$ by $v$; let $W=L^{\perp}$, of rank $n-1$. In degrees $i<2n-1$ the Gysin
+sequence shows $\pi_0^*\colon H^i(B)\to H^i(E_0)$ is an isomorphism, so we may
+define
+\[
+c_k(E):=(\pi_0^*)^{-1}c_k(W),\qquad k<n,
+\]
+inductively on the rank. The two definitions of $c_k$ agree, as one checks on
+sums of line bundles using the splitting principle.
+\end{construction}
+
+\begin{proposition}
+The total Chern class $c(E)=1+c_1+\dots+c_n$ is invertible in $H^\Pi(B;\Z)$.
+\end{proposition}
+
+\begin{proof}
+The proof of Proposition~\ref{prop:invertible} works verbatim over $\Z$: the
+inverse is constructed degree by degree, each coefficient being determined by
+the previous ones.
+\end{proof}
+
+\section{Conjugate bundles and Pontryagin classes}
+
+\begin{definition}
+For a complex bundle $\xi$, the \emph{conjugate bundle} $\bar\xi$ is the same
+real bundle equipped with the opposite complex structure $-J$.
+\end{definition}
+
+\begin{proposition}\label{prop:conjugate}
+$c_k(\bar\xi)=(-1)^k c_k(\xi)$.
+\end{proposition}
+
+\begin{proof}
+\begin{strategy}
+Check it for line bundles, where conjugation reverses the canonical orientation
+and hence the sign of the Euler class, then propagate by the splitting principle
+and injectivity of $h_n^*$.
+\end{strategy}
+
+\step{1} \emph{Line bundles.} For a complex line bundle $L$, a complex basis $v$
+of a fibre gives the oriented real basis $(v,Jv)$; passing to $-J$ replaces it
+by $(v,-Jv)$, which has the opposite orientation. Hence
+$e(\bar L)=-e(L)$ and, since $c_1=e$ for line bundles by
+Theorem~\ref{thm:e-gamma-n}, $c_1(\bar L)=-c_1(L)$.
+
+\step{2} \emph{Universal case.} Over $(\CP^\infty)^n$, conjugating
+$\gamma_1\oplus\dots\oplus\gamma_1$ conjugates each summand, so by Step 1 and
+the Whitney formula
+\[
+h_n^*c_k(\bar\gamma_n)=\sigma_k(-a_1,\dots,-a_n)=(-1)^k\sigma_k(a_1,\dots,a_n)
+=(-1)^k h_n^*c_k(\gamma_n).
+\]
+Injectivity of $h_n^*$ gives $c_k(\bar\gamma_n)=(-1)^kc_k(\gamma_n)$.
+
+\step{3} \emph{General case.} If $f$ classifies $\xi$ then it also classifies
+$\bar\xi$ as a conjugate, in the sense that $f^*\bar\gamma_n\iso\bar\xi$; apply
+naturality.
+\end{proof}
+
+\begin{definition}
+For a real bundle $\xi$, the \emph{complexification} is
+$\xi\otimes\C$, whose underlying real bundle is $\xi\oplus\xi$ with complex
+structure $J(x,y)=(-y,x)$.
+\end{definition}
+
+\begin{lemma}\label{lem:complexification-selfconj}
+$\xi\otimes\C\iso\overline{\xi\otimes\C}$. Consequently the odd Chern classes of
+a complexification are $2$-torsion:
+$2c_{2i+1}(\xi\otimes\C)=0$.
+\end{lemma}
+
+\begin{proof}
+The map $(x,y)\mapsto(x,-y)$ is a real bundle isomorphism
+$\xi\oplus\xi\to\xi\oplus\xi$, and it is conjugate linear for $J$:
+\[
+J(x,-y)=(y,x),
+\qquad\text{while}\qquad
+-\overline{J}(x,y)\ \text{corresponds to}\ (y,x),
+\]
+so it is an isomorphism of complex bundles from $\xi\otimes\C$ onto its
+conjugate. By Proposition~\ref{prop:conjugate},
+$c_{2i+1}(\xi\otimes\C)=c_{2i+1}(\overline{\xi\otimes\C})
+=-c_{2i+1}(\xi\otimes\C)$.
+\end{proof}
+
+\begin{definition}[Pontryagin classes]
+For a real bundle $E\to B$ set
+\[
+p_i(E):=(-1)^i\,c_{2i}\big(E\otimes\C\big)\ \in H^{4i}(B;\Z),
+\qquad p_0=1,
+\]
+and $p(E)=1+p_1(E)+p_2(E)+\cdots$. Naturality
+$f^*p_i(E)=p_i(f^*E)$ is inherited from the Chern classes.
+\end{definition}
+
+\begin{theorem}\label{thm:pontryagin-whitney}
+$2\big(p(E_1\oplus E_2)-p(E_1)p(E_2)\big)=0$; that is, the total Pontryagin
+class is multiplicative modulo $2$-torsion.
+\end{theorem}
+
+\begin{proof}
+Complexification is additive:
+$(E_1\oplus E_2)\otimes\C\iso(E_1\otimes\C)\oplus(E_2\otimes\C)$. The Whitney
+formula for Chern classes gives
+$c\big((E_1\oplus E_2)\otimes\C\big)=c(E_1\otimes\C)\,c(E_2\otimes\C)$. Passing
+from $c$ to $p$ discards the odd Chern classes, and every discarded term is
+$2$-torsion by Lemma~\ref{lem:complexification-selfconj}; multiplying the
+difference by $2$ therefore kills it.
+\end{proof}
+
+\begin{corollary}\label{cor:pontryagin-of-complex}
+If $E$ is a complex bundle then $E\otimes\C\iso E\oplus\bar E$, hence
+\[
+1-p_1+p_2-\cdots+(-1)^np_n
+=\big(1-c_1+c_2-\cdots\big)\big(1+c_1+c_2+\cdots\big),
+\]
+so for instance $p_1=c_1^2-2c_2$ and $p_2=c_2^2-2c_1c_3+2c_4$.
+\end{corollary}
+
+\begin{proof}
+For a complex $E$ with structure $J$, the map
+\[
+E\otimes\C=E\oplus E\longrightarrow E\oplus\bar E,
+\qquad
+(x,y)\longmapsto\Big(\tfrac12(x+Jy),\ \tfrac12(x-Jy)\Big),
+\]
+is a complex isomorphism, as one checks by applying $J$ to both sides. Hence
+$c(E\otimes\C)=c(E)\,c(\bar E)$, and
+Proposition~\ref{prop:conjugate} turns $c(\bar E)$ into the alternating series.
+Comparing coefficients of even degree gives the stated identity.
+\end{proof}
+
+\begin{example}
+$T(S^n)\oplus\nu(S^n)$ is trivial with $\nu$ trivial, so by
+Theorem~\ref{thm:pontryagin-whitney} and the torsion-freeness of $H^*(S^n;\Z)$,
+\[
+p(TS^n)=1 .
+\]
+Pontryagin classes do not distinguish spheres from parallelizable manifolds.
+\end{example}
+
+In the next lecture we compute $p(T\CP^n)$, which is far from trivial, extract
+numerical invariants and put them to work on cobordism questions.

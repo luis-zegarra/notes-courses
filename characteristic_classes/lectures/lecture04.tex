@@ -1,0 +1,333 @@
+\lecture
+
+\begin{guiding}
+For which base spaces does the slogan ``bundles are the same as maps to the
+Grassmannian'' hold, and what does the Grassmannian look like as a space? The
+technical hypothesis is paracompactness; the geometric answer is that the
+Grassmannian is a CW complex with exactly one cell for each Schubert symbol.
+\end{guiding}
+
+\section{Paracompactness}
+
+\begin{definition}
+A space is \emph{paracompact} if every open cover admits a locally finite
+refinement, that is, a refinement such that every point has a neighbourhood
+meeting only finitely many of its members.
+\end{definition}
+
+\begin{theorem}[quoted]
+Every metric space is paracompact and Hausdorff. A regular space which is a
+countable union of compact subsets is paracompact and Hausdorff. Consequently
+the direct limit of a sequence of compact Hausdorff spaces is paracompact.
+\end{theorem}
+
+\begin{remark}
+The infinite Grassmannian $G_n=\varinjlim_k G_n(\R^{n+k})$ is therefore
+paracompact, being a direct limit of compact spaces. All bases we shall meet ---
+manifolds, CW complexes, Grassmannians --- are paracompact.
+\end{remark}
+
+The following technical lemma replaces an arbitrary trivializing cover by a
+countable one. It is the device that makes the classification theorem work for
+non-compact bases.
+
+\begin{lemma}\label{lem:countable-cover}
+Let $\xi$ be a vector bundle over a paracompact Hausdorff base $B$. Then there
+is a countable open cover $U_1,U_2,\dots$ of $B$ such that $\xi|_{U_k}$ is
+trivial for every $k$.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+Start from a locally finite trivializing cover $\{V_\alpha\}$ with subordinate
+bump functions $\lambda_\alpha$. For each \emph{finite} index set $S$ collect the
+points where the functions indexed by $S$ dominate all the others; this produces
+an open set contained in $\bigcap_{\alpha\in S}V_\alpha$, hence trivializing.
+Two different sets of the same cardinality give disjoint pieces, so we may take
+their union and index the resulting cover by the cardinality $k=|S|$ alone.
+\end{strategy}
+
+\step{1} \emph{Set-up.} Choose a locally finite open cover $\{V_\alpha\}$ of $B$
+such that $\xi|_{V_\alpha}$ is trivial, and continuous functions
+$\lambda_\alpha\colon B\to[0,1]$ with $\lambda_\alpha=0$ outside $V_\alpha$ and
+with the open sets $W_\alpha=\lambda_\alpha^{-1}\big((0,1]\big)$ still covering
+$B$. Such data exists by paracompactness.
+
+\step{2} \emph{The sets $U(S)$.} For a finite non-empty set $S$ of indices put
+\[
+U(S)=\Big\{b\in B\ \Big|\ \min_{\alpha\in S}\lambda_\alpha(b)
+\ >\ \max_{\beta\notin S}\lambda_\beta(b)\Big\}.
+\]
+Near any point only finitely many $\lambda$'s are non-zero, so both the minimum
+and the maximum are continuous there, and $U(S)$ is open.
+
+\step{3} \emph{$U(S)$ is trivializing.} If $b\in U(S)$ and $\alpha\in S$ then
+$\lambda_\alpha(b)>0$, so $b\in V_\alpha$. Hence
+\[
+U(S)\ \subset\ \bigcap_{\alpha\in S}V_\alpha\ \subset\ V_\alpha ,
+\]
+and $\xi$ restricted to $U(S)$ is trivial.
+
+\step{4} \emph{Sets of equal size are disjoint.} Let $S\neq S'$ with
+$|S|=|S'|=k$. Choose $\alpha\in S\smallsetminus S'$ and
+$\alpha'\in S'\smallsetminus S$. If $b$ were in $U(S)\cap U(S')$ we would get
+$\lambda_\alpha(b)>\lambda_{\alpha'}(b)$ from $b\in U(S)$, since
+$\alpha\in S$ and $\alpha'\notin S$, and symmetrically
+$\lambda_{\alpha'}(b)>\lambda_\alpha(b)$ from $b\in U(S')$: a contradiction.
+
+\step{5} \emph{The cover.} Put
+\[
+U_k=\bigsqcup_{|S|=k}U(S),
+\]
+a disjoint union of open trivializing sets by Steps 3 and 4, hence itself open
+and trivializing, since a bundle trivial on each member of a disjoint family is
+trivial on their union. Finally the $U_k$ cover $B$: given $b$, let
+$S=\{\alpha\mid\lambda_\alpha(b)\ \text{is maximal}\}$, which is finite and
+non-empty by local finiteness and Step 1; then $b\in U(S)\subset U_{|S|}$.
+\end{proof}
+
+\section{The universal bundle theorem}
+
+\begin{theorem}\label{thm:universal}
+Let $\xi$ be an $\R^n$-bundle over a paracompact base $B$. Then
+
+\begin{enumerate}
+\item there exists a bundle map $f\colon\xi\to\gamma^n$;
+\item any two bundle maps $\xi\to\gamma^n$ are homotopic through bundle maps.
+\end{enumerate}
+
+Consequently the homotopy class of the base map
+$\bar f\in\Maps(B,G_n)$ depends only on $\xi$, and $\xi\iso\bar f^{\,*}\gamma^n$.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Existence repeats the construction of Lemma~\ref{lem:compact-classify}, with the
+countable cover of Lemma~\ref{lem:countable-cover} replacing the finite one; the
+target is $\R^\infty$ instead of a fixed $\R^m$. For uniqueness, the naive
+straight-line homotopy between two fibrewise injective maps
+$\hat f,\hat g\colon E(\xi)\to\R^\infty$ works whenever their values are never
+negative multiples of each other. In general one first pushes $\hat f$ into the
+odd coordinates and $\hat g$ into the even ones, where the obstruction cannot
+occur, and chains three such homotopies.
+\end{strategy}
+
+\step{1} \emph{Existence.} Let $U_1,U_2,\dots$ be as in
+Lemma~\ref{lem:countable-cover}, with trivializations
+$h_i\colon U_i\times\R^n\to\pi^{-1}(U_i)$ and bump functions $\lambda_i$ whose
+positivity sets cover $B$. Setting
+$\tilde h_i=\proj_{\R^n}\circ h_i^{-1}$ and
+$h'_i(e)=\lambda_i(\pi(e))\,\tilde h_i(e)$, extended by zero, define
+\[
+\hat f\colon E(\xi)\longrightarrow \R^n\oplus\R^n\oplus\cdots=\R^\infty,
+\qquad
+\hat f(e)=\big(h'_1(e),\,h'_2(e),\,\dots\big).
+\]
+Locally only finitely many terms are non-zero, so $\hat f$ is continuous; it is
+linear on fibres, and injective on the fibre over $b$ because
+$\lambda_i(b)>0$ for some $i$. As in Step 1 of
+Lemma~\ref{lem:compact-classify}, $\hat f$ determines a bundle map
+$f\colon\xi\to\gamma^n$ by
+$f(e)=\big(\hat f(F_{\pi(e)}(\xi)),\ \hat f(e)\big)$.
+
+\step{2} \emph{The easy homotopy.} Suppose $\hat f,\hat g\colon E(\xi)\to
+\R^\infty$ are continuous, linear and injective on fibres, and satisfy
+\[
+\hat f(e)\ \neq\ -\lambda^2\,\hat g(e)
+\qquad\text{for all }e\neq0\text{ and all }\lambda\in\R .
+\tag{$\ast$}
+\]
+Then $\hat h_t=(1-t)\hat f+t\hat g$ is fibrewise linear, and injective on
+fibres: if $\hat h_t(v)=0$ with $v\neq0$ and $0<t<1$ then
+$\hat f(v)=-\tfrac{t}{1-t}\hat g(v)$, contradicting $(\ast)$; for $t=0,1$ it is
+$\hat f$ or $\hat g$. So $\hat h_t$ gives a homotopy of bundle maps from $f$ to
+$g$.
+
+\step{3} \emph{Two shift operators.} Let $d_1,d_2\colon\R^\infty\to\R^\infty$ be
+the linear injections
+\[
+d_1(e_i)=e_{2i-1},
+\qquad
+d_2(e_i)=e_{2i}.
+\]
+Being injective and linear, each induces a bundle map $\gamma^n\to\gamma^n$
+sending $(X,v)\mapsto(d_jX,d_jv)$; and $d_j\circ\hat f$ is again continuous,
+linear and fibrewise injective.
+
+\step{4} \emph{$\hat f$ and $d_1\hat f$ satisfy $(\ast)$.} Let $v=\hat f(e)\neq0$
+and let $k$ be the index of its first non-zero coordinate. Suppose
+$d_1v=-\lambda^2 v$ with $\lambda\neq0$. If $k=1$ then $(d_1v)_1=v_1$, so
+$v_1=-\lambda^2v_1$ forces $v_1=0$, a contradiction. If $k>1$ then the first
+non-zero coordinate of $d_1v$ sits in position $2k-1>k$, so $(d_1v)_k=0$, giving
+$-\lambda^2v_k=0$ and again $v_k=0$. The same argument applies to $\hat g$ and
+$d_2\hat g$, using $2k>k$.
+
+\step{5} \emph{$d_1\hat f$ and $d_2\hat g$ satisfy $(\ast)$.} The vector
+$d_1\hat f(e)$ is supported in odd coordinates and $d_2\hat g(e)$ in even ones.
+If $d_1\hat f(e)=-\lambda^2d_2\hat g(e)$ then both sides vanish, so
+$\hat f(e)=0$ and hence $e=0$.
+
+\step{6} \emph{Chaining.} By Steps 2, 4 and 5,
+\[
+f\ \simeq\ d_1\circ f\ \simeq\ d_2\circ g\ \simeq\ g
+\]
+through bundle maps, which proves (2).
+
+\step{7} \emph{Conclusion.} A bundle map $f\colon\xi\to\gamma^n$ gives
+$\xi\iso\bar f^{\,*}\gamma^n$ by Lemma~\ref{lem:bundle-map-pullback}, and by (2)
+the class $[\bar f]$ is well defined.
+\end{proof}
+
+\begin{remark}
+The converse also holds: homotopic maps $B\to G_n$ pull $\gamma^n$ back to
+isomorphic bundles, so
+\[
+\big\{\R^n\text{-bundles over }B\big\}\big/\!\iso
+\ \longleftrightarrow\
+[\,B,\,G_n\,].
+\]
+This gives a clean definition of characteristic classes. For
+$c\in H^i(G_n)$ and a bundle $\xi$ with classifying map $f_\xi$, put
+\[
+c(\xi):=f_\xi^*\,c\ \in\ H^i(B).
+\]
+Naturality is automatic: if $\eta=g^*\xi$ then $f_\eta\simeq f_\xi\circ g$, so
+$c(\eta)=g^*c(\xi)$.
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+\eta \arrow[d] \arrow[r] & \xi \arrow[d] \arrow[r] & \gamma^n\arrow[d]\\
+B_1 \arrow[r,"g"] \arrow[rr, bend right=20, "f_\eta"'] & B_2 \arrow[r,"f_\xi"] & G_n
+\end{tikzcd}
+\]
+The whole theory therefore reduces to one computation: what is $H^*(G_n)$?
+\end{remark}
+
+\section{A cell structure on the Grassmannian}
+
+\begin{definition}
+A \emph{CW complex} is a Hausdorff space $K$ partitioned into disjoint open
+cells $\{e_\alpha\}$ such that
+
+\begin{enumerate}
+\item each $e_\alpha$ carries a characteristic map
+$f\colon D^{n(\alpha)}\to K$ taking the open disc homeomorphically onto
+$e_\alpha$;
+\item $\bar e_\alpha\smallsetminus e_\alpha$ is contained in a finite union of
+cells of strictly lower dimension;
+\item every point lies in a finite subcomplex;
+\item $K$ carries the direct limit topology of its finite subcomplexes.
+\end{enumerate}
+\end{definition}
+
+Fix the standard flag $\R^0\subset\R^1\subset\dots\subset\R^m$, where $\R^k$ is
+spanned by the first $k$ coordinates, and let $X\subset\R^m$ be an $n$-plane.
+Consider the sequence of integers
+\[
+0=\dim(X\cap\R^0)\ \le\ \dim(X\cap\R^1)\ \le\ \dots\ \le\ \dim(X\cap\R^m)=n .
+\]
+
+\begin{claim}\label{claim:jumps}
+Consecutive terms differ by at most $1$.
+\end{claim}
+
+\begin{proof}
+The sequence
+\[
+0\longrightarrow X\cap\R^{k-1}\longrightarrow X\cap\R^{k}
+\ \xrightarrow{\ x\,\mapsto\, x_k\ }\ \R
+\]
+is exact: the kernel of the $k$-th coordinate function on $X\cap\R^k$ is exactly
+$X\cap\R^{k-1}$. Hence
+\[
+\dim(X\cap\R^k)=\dim(X\cap\R^{k-1})+\rk(x\mapsto x_k)
+\le\dim(X\cap\R^{k-1})+1 .
+\]
+\end{proof}
+
+So the sequence increases by exactly $1$ at $n$ places, the \emph{jumps}
+\[
+1\le\sigma_1<\sigma_2<\dots<\sigma_n\le m,
+\]
+called the \emph{Schubert symbol} of $X$. Define
+\[
+e(\sigma)=\big\{X\in G_n(\R^m)\ \big|\
+\dim(X\cap\R^{\sigma_i})=i \ \text{ and }\
+\dim(X\cap\R^{\sigma_i-1})=i-1,
+\]
+\[
+\text{for } i=1,\dots,n\big\}.
+\]
+Every $X$ lies in exactly one $e(\sigma)$, and there are $\binom{m}{n}$ symbols.
+
+\begin{claim}\label{claim:half-space}
+Let $H^{k}\subset\R^k\subset\R^m$ be the half-space
+$\{x\in\R^k\mid x_k>0\}$. Then $X\in e(\sigma)$ if and only if $X$ has a basis
+$x_1,\dots,x_n$ with $x_i\in H^{\sigma_i}$; moreover such a basis can be chosen
+\emph{orthonormal}, and then it is unique.
+\end{claim}
+
+\begin{proof}
+\begin{strategy}
+One direction is a rank computation: a vector whose last non-zero coordinate is
+in position $\sigma_i$ forces the dimension to jump there. The other direction
+constructs the basis one vector at a time, taking at each jump the unique unit
+vector orthogonal to the previous ones and normalized to have positive
+$\sigma_i$-th coordinate.
+\end{strategy}
+
+\step{1} \emph{Sufficiency.} Suppose $X$ has a basis with $x_i\in H^{\sigma_i}$.
+Then $x_1,\dots,x_i\in\R^{\sigma_i}$, so $\dim(X\cap\R^{\sigma_i})\ge i$; and
+the $\sigma_i$-th coordinate of $x_i$ is non-zero while
+$x_1,\dots,x_{i-1}\in\R^{\sigma_{i-1}}\subset\R^{\sigma_i-1}$, so the map
+$X\cap\R^{\sigma_i}\to\R$, $x\mapsto x_{\sigma_i}$, has rank $1$ and
+$\dim(X\cap\R^{\sigma_i})>\dim(X\cap\R^{\sigma_i-1})$. Counting the $n$ jumps
+this forces $\dim(X\cap\R^{\sigma_i})=i$ exactly, so $X\in e(\sigma)$.
+
+\step{2} \emph{Necessity, first vector.} Let $X\in e(\sigma)$. Then
+$X\cap\R^{\sigma_1}$ is a line and $X\cap\R^{\sigma_1-1}=0$, so every non-zero
+vector of that line has non-zero $\sigma_1$-th coordinate. There is exactly one
+unit vector $x_1$ on it with positive $\sigma_1$-th coordinate, and
+$x_1\in H^{\sigma_1}$.
+
+\step{3} \emph{Necessity, induction.} Suppose orthonormal
+$x_1,\dots,x_{i-1}$ have been found with $x_j\in H^{\sigma_j}$, spanning
+$X\cap\R^{\sigma_{i-1}}$. The space $X\cap\R^{\sigma_i}$ has dimension $i$ and
+contains $X\cap\R^{\sigma_{i-1}}$ as a hyperplane, so its orthogonal complement
+inside $X\cap\R^{\sigma_i}$ is a line. Since
+$\dim(X\cap\R^{\sigma_i-1})=i-1=\dim(X\cap\R^{\sigma_{i-1}})$, no non-zero
+vector of that line lies in $\R^{\sigma_i-1}$; hence its two unit vectors have
+non-zero $\sigma_i$-th coordinate, and exactly one of them, call it $x_i$, has
+it positive. Then $x_i\in H^{\sigma_i}$, and $x_1,\dots,x_i$ is orthonormal.
+
+\step{4} \emph{Uniqueness.} At each stage the choice was forced: the line was
+determined by $X$ and the previous vectors, and the sign by the positivity
+condition.
+\end{proof}
+
+In matrix terms: writing a basis of $X$ as the rows of an $n\times m$ matrix and
+row reducing, $X\in e(\sigma)$ if and only if $X$ is the row space of a unique
+matrix in reduced echelon form whose pivots occupy the columns
+$\sigma_1,\dots,\sigma_n$,
+\[
+\begin{pmatrix}
+*&\cdots&*&1&0&\cdots& & &0\\
+*&\cdots&*&*&*&1&0&\cdots&0\\
+\vdots& & & & & & &\ddots&\\
+*&\cdots&*&*&*&*&\cdots&1&0\cdots 0
+\end{pmatrix}
+\]
+The number of free entries is
+\[
+d(\sigma)=(\sigma_1-1)+(\sigma_2-2)+\dots+(\sigma_n-n),
+\]
+which will be the dimension of the cell. Following
+Claim~\ref{claim:half-space}, set
+\[
+e'(\sigma)=V^0_n(\R^m)\cap\big(H^{\sigma_1}\times\dots\times H^{\sigma_n}\big),
+\qquad
+\bar e'(\sigma)=V^0_n(\R^m)\cap\big(\bar H^{\sigma_1}\times\dots\times
+\bar H^{\sigma_n}\big),
+\]
+so that $q=\spann$ maps $e'(\sigma)$ bijectively onto $e(\sigma)$. In the next
+lecture we prove that $\bar e'(\sigma)$ is a closed cell of dimension
+$d(\sigma)$ and that these cells assemble into a CW structure.

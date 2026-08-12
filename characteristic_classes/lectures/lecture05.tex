@@ -1,0 +1,545 @@
+\lecture
+
+\begin{guiding}
+We want $H^*(G_n;\Z_2)$, together with generators we can compute with. The plan
+has four movements: finish the cell structure and count cells; prove the
+Leray--Hirsch theorem; use projective bundles to obtain a splitting principle;
+and conclude that $H^*(G_n;\Z_2)$ is a polynomial ring, which finally
+\emph{constructs} the Stiefel--Whitney classes and proves they are unique.
+\end{guiding}
+
+\section{Schubert cells, completed}
+
+Recall the notation of Lecture 4: for a symbol
+$\sigma=(\sigma_1<\dots<\sigma_n)$ we have $e(\sigma)\subset G_n(\R^m)$, the set
+$e'(\sigma)$ of orthonormal frames with $x_i\in H^{\sigma_i}$, its closure
+$\bar e'(\sigma)$ where $x_i\in\bar H^{\sigma_i}$, and
+$d(\sigma)=\sum_i(\sigma_i-i)$.
+
+We first record the tool that drives the induction.
+
+\begin{lemma}\label{lem:rotation}
+For unit vectors $u,v\in\R^m$ let $T(u,v)\in\Or(m)$ be the rotation carrying $u$
+to $v$ and fixing $(\R u+\R v)^\perp$ pointwise. Then $T(u,v)(x)$ depends
+continuously on $(u,v,x)$, and if $u,v\in\R^k$ then
+$T(u,v)x\equiv x \bmod \R^k$ for every $x$.
+\end{lemma}
+
+\begin{proof}
+On the plane $\R u+\R v$ the rotation is given by an explicit formula in $u,v$
+(Gram--Schmidt in that plane followed by the planar rotation through the angle
+between $u$ and $v$), and it is the identity on the orthogonal complement; both
+pieces depend continuously on $(u,v)$. If $u,v\in\R^k$ then $T(u,v)$ is the
+identity on $(\R^k)^\perp$ and preserves $\R^k$, so $T(u,v)x-x\in\R^k$.
+\end{proof}
+
+\begin{lemma}\label{lem:closed-cell}
+$\bar e'(\sigma)$ is a closed cell of dimension $d(\sigma)$ with interior
+$e'(\sigma)$.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+Induct on $n$. For $n=1$ the set is a closed hemisphere. For the inductive step,
+observe that a frame in $\bar e'(\sigma_1,\dots,\sigma_{n+1})$ is a frame in
+$\bar e'(\sigma_1,\dots,\sigma_n)$ together with one extra unit vector,
+orthogonal to the previous ones and lying in $\bar H^{\sigma_{n+1}}$. Rotations
+identify the space of possible extra vectors, which varies with the frame, with
+one fixed closed cell; this exhibits the whole space as a product.
+\end{strategy}
+
+\step{1} \emph{Base case $n=1$.} Here
+$\bar e'(\sigma_1)=\{x\in\R^{\sigma_1}\mid |x|=1,\ x_{\sigma_1}\ge0\}$, a closed
+hemisphere of $S^{\sigma_1-1}$, hence a closed cell of dimension
+$\sigma_1-1=d(\sigma_1)$, with interior the open hemisphere $e'(\sigma_1)$.
+
+\step{2} \emph{The model for the new vector.} Fix
+$\sigma_1<\dots<\sigma_{n+1}$ and let $b_i\in\R^m$ be the standard basis vector
+with a $1$ in position $\sigma_i$, so that
+$(b_1,\dots,b_n)\in e'(\sigma_1,\dots,\sigma_n)$. Put
+\[
+D=\big\{\,u\in\bar H^{\sigma_{n+1}}\ \big|\ |u|=1,\
+b_1\cdot u=\dots=b_n\cdot u=0\,\big\}.
+\]
+The conditions say that $u$ lies in $\R^{\sigma_{n+1}}$, has last coordinate
+$\ge0$, and has vanishing coordinates in the $n$ positions
+$\sigma_1,\dots,\sigma_n$. So $D$ is a closed hemisphere of a sphere of
+dimension $\sigma_{n+1}-n-1$, hence a closed cell of dimension
+$\sigma_{n+1}-n-1$.
+
+\step{3} \emph{Moving a frame to the standard one.} Given
+$(x_1,\dots,x_n)\in\bar e'(\sigma_1,\dots,\sigma_n)$, set
+\[
+T_{(x)}=T(b_n,x_n)\circ\dots\circ T(b_1,x_1)\in\Or(m).
+\]
+Then $T_{(x)}b_i=x_i$ for every $i$. Indeed $T(b_j,x_j)$ with $j<i$ fixes
+$b_i$, because $b_i$ is orthogonal to both $b_j$ and $x_j$: orthogonality to
+$x_j$ holds since $x_j\in\R^{\sigma_j}$ has vanishing coordinate in position
+$\sigma_i>\sigma_j$. Then $T(b_i,x_i)$ carries $b_i$ to $x_i$, and the later
+rotations $T(b_l,x_l)$ with $l>i$ fix $x_i$ for the same reason. The map
+$(x)\mapsto T_{(x)}$ is continuous by Lemma~\ref{lem:rotation}.
+
+\step{4} \emph{The product decomposition.} Define
+\[
+\Psi\colon\bar e'(\sigma_1,\dots,\sigma_n)\times D
+\longrightarrow \bar e'(\sigma_1,\dots,\sigma_{n+1})
+\]
+by
+\[
+\Psi\big((x_1,\dots,x_n),\,u\big)=\big(x_1,\dots,x_n,\ T_{(x)}u\big).
+\]
+This lands where claimed. The vector $T_{(x)}u$ is a unit vector; it is
+orthogonal to each $x_i$, since
+$x_i\cdot T_{(x)}u=T_{(x)}b_i\cdot T_{(x)}u=b_i\cdot u=0$ as $T_{(x)}$ is
+orthogonal; and it lies in $\bar H^{\sigma_{n+1}}$, because by
+Lemma~\ref{lem:rotation} each rotation used moves a vector only within
+$\R^{\sigma_i}\subset\R^{\sigma_{n+1}}$, so
+$T_{(x)}u\equiv u\bmod\R^{\sigma_{n+1}-1}$ and the $\sigma_{n+1}$-th coordinate
+of $T_{(x)}u$ equals that of $u$, which is $\ge0$.
+
+\step{5} \emph{$\Psi$ is a homeomorphism.} It is continuous by Step 3. It is
+injective, since the first $n$ entries determine $T_{(x)}$ and hence
+$u=T_{(x)}^{-1}(T_{(x)}u)$. It is surjective: given
+$(x_1,\dots,x_{n+1})$ in the target, put $u=T_{(x)}^{-1}x_{n+1}$ and reverse the
+computations of Step 4. Source and target are compact Hausdorff, so $\Psi$ is a
+homeomorphism.
+
+\step{6} \emph{Conclusion.} By induction $\bar e'(\sigma_1,\dots,\sigma_n)$ is a
+closed cell of dimension $\sum_{i\le n}(\sigma_i-i)$; by Step 2, $D$ is a closed
+cell of dimension $\sigma_{n+1}-(n+1)$. A product of closed cells is a closed
+cell, and dimensions add, giving $d(\sigma_1,\dots,\sigma_{n+1})$. Under $\Psi$
+the interiors correspond, since $T_{(x)}u$ has positive $\sigma_{n+1}$-th
+coordinate exactly when $u$ does; hence the interior is
+$e'(\sigma_1,\dots,\sigma_{n+1})$.
+\end{proof}
+
+\begin{lemma}\label{lem:q-characteristic}
+The map $q|_{\bar e'(\sigma)}\colon\bar e'(\sigma)\to G_n(\R^m)$ has image
+$\overline{e(\sigma)}$ and restricts to a homeomorphism
+$e'(\sigma)\to e(\sigma)$. In particular it is a characteristic map for the cell
+$e(\sigma)$.
+\end{lemma}
+
+\begin{proof}
+By Claim~\ref{claim:half-space} the restriction $q\colon e'(\sigma)\to e(\sigma)$
+is a bijection; it is continuous, and its inverse assigns to $X$ its unique
+positive orthonormal basis, which is continuous by the explicit inductive
+construction in the proof of that claim. Since $\bar e'(\sigma)$ is compact and
+$G_n(\R^m)$ Hausdorff, $q(\bar e'(\sigma))$ is compact, hence closed, and it
+contains $e(\sigma)$, so it contains $\overline{e(\sigma)}$; conversely
+$\bar e'(\sigma)$ is the closure of $e'(\sigma)$, so its image lies in the
+closure of $e(\sigma)$.
+\end{proof}
+
+\begin{theorem}\label{thm:cw-grassmannian}
+The $\binom{m}{n}$ sets $e(\sigma)$ are the cells of a CW structure on
+$G_n(\R^m)$, with $\dim e(\sigma)=d(\sigma)$. Passing to the limit $m\to\infty$
+gives a CW structure on $G_n$ with one cell for each partition into at most $n$
+parts.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Everything except the boundary condition has been proved. For that condition one
+shows that a plane in the closure of $e(\sigma)$ has a symbol $\tau$ which is
+termwise smaller, hence a strictly smaller cell dimension unless $\tau=\sigma$.
+\end{strategy}
+
+\step{1} By Lemma~\ref{lem:closed-cell} and Lemma~\ref{lem:q-characteristic},
+each $e(\sigma)$ is an open cell of dimension $d(\sigma)$ with characteristic
+map $q|_{\bar e'(\sigma)}$, and the $e(\sigma)$ partition $G_n(\R^m)$.
+
+\step{2} \emph{Boundaries drop dimension.} Let
+$X\in\overline{e(\sigma)}\smallsetminus e(\sigma)$, say $X=q(x_1,\dots,x_n)$
+with $(x_i)\in\bar e'(\sigma)\smallsetminus e'(\sigma)$. Since
+$x_i\in\bar H^{\sigma_i}\subset\R^{\sigma_i}$, we get
+$x_1,\dots,x_i\in X\cap\R^{\sigma_i}$ and therefore
+\[
+\dim\big(X\cap\R^{\sigma_i}\big)\ \ge\ i\qquad\text{for every } i .
+\]
+If $\tau$ is the symbol of $X$, this says exactly $\tau_i\le\sigma_i$ for all
+$i$, whence
+\[
+d(\tau)=\sum_i(\tau_i-i)\ \le\ \sum_i(\sigma_i-i)=d(\sigma).
+\]
+
+\step{3} \emph{Strictness.} Equality would force $\tau_i=\sigma_i$ for all $i$,
+i.e.\ $X\in e(\sigma)$, which is excluded. Hence
+$\overline{e(\sigma)}\smallsetminus e(\sigma)$ is contained in the union of
+cells of strictly smaller dimension, of which there are finitely many.
+
+\step{4} \emph{Limit.} The inclusions $G_n(\R^m)\subset G_n(\R^{m+1})$ are
+inclusions of subcomplexes, since a symbol for $\R^m$ is one for $\R^{m+1}$ and
+the cells match. The limit therefore inherits a CW structure, with one cell for
+each sequence $1\le\sigma_1<\dots<\sigma_n$, that is, for each partition
+$0\le\sigma_1-1\le\dots\le\sigma_n-n$ into at most $n$ parts.
+\end{proof}
+
+\begin{corollary}\label{cor:HGn-rank}
+For every $r$,
+\[
+\dim_{\Z_2}H^r\big(G_n;\Z_2\big)\ \le\
+p_n(r):=\#\{\text{partitions of }r\text{ into at most }n\text{ parts}\}.
+\]
+\end{corollary}
+
+\begin{proof}
+The cellular cochain complex computing $H^*(G_n;\Z_2)$ has exactly $p_n(r)$
+generators in degree $r$, by Theorem~\ref{thm:cw-grassmannian}; cohomology of a
+complex is a subquotient of the complex.
+\end{proof}
+
+\begin{remark}[quoted]
+In fact the mod $2$ cellular boundary operator vanishes identically, so the
+inequality above is an equality. We shall not need this: the reverse inequality
+will come for free from Theorem~\ref{thm:HGn} below. See Milnor--Stasheff,
+\S 6, for the direct verification that all incidence numbers of Schubert cells
+are even.
+\end{remark}
+
+\section{The Leray--Hirsch theorem}
+
+\begin{theorem}[Leray--Hirsch]\label{thm:leray-hirsch}
+Let $\pi\colon E\to B$ be a fibre bundle with fibre $F$ and
+$i\colon F\hookrightarrow E$ the inclusion of a fibre. Assume that $B$ admits a
+finite trivializing cover, that $H^*(F;\Lambda)$ is a free $\Lambda$-module of
+finite rank, and that there is a $\Lambda$-linear map
+\[
+s\colon H^*(F;\Lambda)\longrightarrow H^*(E;\Lambda)
+\qquad\text{with}\qquad
+i^*\circ s=\mathrm{id}_{H^*(F)} .
+\]
+Then
+\[
+\Phi\colon H^*(F)\otimes_\Lambda H^*(B)\longrightarrow H^*(E),
+\qquad
+\alpha\otimes\beta\longmapsto s(\alpha)\smile\pi^*\beta,
+\]
+is an isomorphism. In particular $\pi^*\colon H^*(B)\to H^*(E)$ is injective.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+The map $\Phi$ is a homomorphism of $H^*(B)$-modules and is defined globally, so
+it can be compared over the members of a cover. Over a trivializing open set
+K\"unneth applies, and the matrix of $\Phi$ in the K\"unneth basis is triangular
+with respect to the degree of the fibre classes, with invertible diagonal
+blocks; hence $\Phi$ is an isomorphism there. Mayer--Vietoris and the five lemma
+then propagate the statement from a cover to a union, and induction on the size
+of the cover finishes.
+\end{strategy}
+
+\step{1} \emph{Restriction.} For open $U\subset B$ let $E_U=\pi^{-1}(U)$ and let
+$\Phi_U$ be defined by the same formula, using the restrictions of $s(\alpha)$ to
+$E_U$. Restriction of cohomology classes commutes with $\Phi$, so we obtain maps
+of long exact sequences whenever we use Mayer--Vietoris.
+
+\step{2} \emph{The trivial case.} Assume $E_U\iso U\times F$. Choose a
+homogeneous basis $\alpha_1,\dots,\alpha_N$ of $H^*(F)$ ordered so that
+$\deg\alpha_1\ge\dots\ge\deg\alpha_N$. By K\"unneth,
+\[
+H^*(E_U)\ \iso\ H^*(U)\otimes H^*(F),
+\]
+a free $H^*(U)$-module with basis $1\otimes\alpha_1,\dots,1\otimes\alpha_N$.
+Write
+\[
+s(\alpha_j)\big|_{E_U}=\sum_{k}c_{jk}\otimes\alpha_k,
+\qquad c_{jk}\in H^{\deg\alpha_j-\deg\alpha_k}(U).
+\]
+Since degrees are non-negative, $c_{jk}=0$ unless
+$\deg\alpha_j\ge\deg\alpha_k$, so the matrix $(c_{jk})$ is block triangular for
+our ordering. Restricting to a fibre kills all classes of positive degree
+pulled back from $U$, so $i^*s=\mathrm{id}$ gives, for
+$\deg\alpha_j=\deg\alpha_k$, that $c_{jk}\in H^0(U)$ has the value $\delta_{jk}$
+at every point; hence the diagonal blocks are invertible over $H^0(U)$.
+
+\step{3} \emph{Invertibility.} A block triangular matrix over a commutative
+ring with invertible diagonal blocks is invertible, because its strictly
+triangular part is nilpotent (it strictly decreases the finite ordering). Hence
+$(c_{jk})$ is invertible over $H^*(U)$, and therefore
+\[
+\Phi_U(\alpha_j\otimes\beta)=s(\alpha_j)\smile\pi^*\beta
+=\sum_k\big(c_{jk}\,\beta\big)\otimes\alpha_k
+\]
+is an isomorphism of $H^*(U)$-modules.
+
+\step{4} \emph{Mayer--Vietoris.} Suppose $U=U'\cup U''$ with the theorem known
+for $U',U''$ and $U'\cap U''$. Tensoring the Mayer--Vietoris sequence of
+$(U',U'')$ with the free module $H^*(F)$ keeps it exact, and $\Phi$ maps it to
+the Mayer--Vietoris sequence of $(E_{U'},E_{U''})$, commutatively by Step 1.
+Three out of every four consecutive vertical maps are isomorphisms, so the five
+lemma gives that $\Phi_U$ is an isomorphism.
+
+\step{5} \emph{Induction.} Let $U_1,\dots,U_r$ be a finite trivializing cover of
+$B$. The theorem holds over each $U_i$ by Step 2, hence over
+$U_1\cup U_2$ by Step 4, since $U_1\cap U_2$ is trivializing as well. Assuming
+it over $U_1\cup\dots\cup U_j$, apply Step 4 to
+$U'=U_1\cup\dots\cup U_j$ and $U''=U_{j+1}$, whose intersection is
+$\bigcup_{i\le j}(U_i\cap U_{j+1})$, a union of $j$ trivializing sets to which
+the inductive hypothesis applies. After $r$ steps we reach $B$.
+
+\step{6} \emph{Injectivity of $\pi^*$.} Taking $\alpha=1\in H^0(F)$ and noting
+$s(1)=1$, since $i^*$ is injective in degree $0$ on the relevant summand, the
+composite $\beta\mapsto\Phi(1\otimes\beta)=\pi^*\beta$ is the inclusion of a
+direct summand, hence injective.
+\end{proof}
+
+\begin{remark}
+For the infinite Grassmannians we apply the theorem to the compact
+approximations $G_n(\R^{n+k})$, which do admit finite trivializing covers, and
+pass to the limit; the cohomology of $G_n$ in each fixed degree agrees with that
+of $G_n(\R^{n+k})$ for $k$ large, since the CW structures are compatible and no
+new cells appear in low dimensions.
+\end{remark}
+
+\section{Projective bundles and the splitting principle}
+
+\begin{definition}
+For a real bundle $\pi\colon E\to B$ of rank $n$, the \emph{projective bundle}
+$p\colon\mathbb P(E)\to B$ is the fibre bundle whose fibre over $b$ is the space
+$\mathbb P(\pi^{-1}(b))\iso\RP^{n-1}$ of lines in the fibre.
+\end{definition}
+
+\begin{lemma}\label{lem:PE-injective}
+For every rank $n$ bundle $E\to B$ over a base with a finite trivializing cover,
+\[
+H^*\big(\mathbb P(E);\Z_2\big)\ \iso\ H^*(B;\Z_2)\otimes H^*(\RP^{n-1};\Z_2)
+\]
+as $H^*(B)$-modules; in particular
+$p^*\colon H^*(B;\Z_2)\to H^*(\mathbb P(E);\Z_2)$ is injective.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+Produce the splitting $s$ required by Leray--Hirsch from a canonical line bundle
+living on $\mathbb P(E)$: its classifying map restricts on each fibre to the
+inclusion $\RP^{n-1}\hookrightarrow\RP^\infty$, which is injective on
+cohomology in the relevant range.
+\end{strategy}
+
+\step{1} \emph{The tautological line bundle.} Over the point
+$(b,\ell)\in\mathbb P(E)$, with $\ell\subset\pi^{-1}(b)$ a line, take the line
+$\ell$ itself. This defines a line bundle $\gamma\to\mathbb P(E)$; local
+triviality is inherited from that of $E$ together with the local triviality of
+$\gamma^1$ over $\RP^{n-1}$.
+
+\step{2} \emph{Its classifying map.} Let
+$f\colon\mathbb P(E)\to G_1=\RP^\infty$ classify $\gamma$. On a fibre
+$F=\mathbb P(\pi^{-1}(b))\iso\RP^{n-1}$ the bundle $\gamma$ restricts to the
+canonical line bundle of $\RP^{n-1}$, so $f|_F$ classifies it and is therefore
+homotopic to the standard inclusion $j\colon\RP^{n-1}\hookrightarrow\RP^\infty$.
+
+\step{3} \emph{The splitting.} With
+$H^*(\RP^\infty;\Z_2)=\Z_2[a]$ and
+$H^*(\RP^{n-1};\Z_2)=\Z_2[a]/(a^{n})$, the map $j^*$ sends $a^k$ to $a^k$ and is
+an isomorphism in degrees $\le n-1$. Define
+\[
+s\colon H^*(\RP^{n-1};\Z_2)\to H^*(\mathbb P(E);\Z_2),
+\qquad s(a^k)=f^*(a^k)\quad(0\le k\le n-1),
+\]
+extended linearly. By Step 2, $i_F^*s(a^k)=j^*(a^k)=a^k$, so
+$i_F^*\circ s=\mathrm{id}$.
+
+\step{4} Apply Theorem~\ref{thm:leray-hirsch}.
+\end{proof}
+
+\begin{definition}
+A \emph{splitting map} for a rank $n$ bundle $E\to B$ is a map $f\colon B'\to B$
+such that $f^*E\iso L_1\oplus\dots\oplus L_n$ with all $L_i$ line bundles, and
+$f^*\colon H^*(B)\to H^*(B')$ injective.
+\end{definition}
+
+\begin{corollary}[Splitting principle]\label{cor:splitting}
+Every real vector bundle admits a splitting map.
+\end{corollary}
+
+\begin{proof}
+\begin{strategy}
+Split off one line at a time on the projectivization, where the tautological
+line bundle is by construction a sub-bundle of the pull-back; the rank drops by
+one at each stage and injectivity is preserved because a composite of injections
+is injective.
+\end{strategy}
+
+\step{1} On $\mathbb P(E)$ the tautological line bundle $\gamma$ of Step 1 above
+is a sub-bundle of $p^*E$: over $(b,\ell)$ the fibre of $p^*E$ is
+$\pi^{-1}(b)\supset\ell$. Choosing a Euclidean metric,
+Theorem~\ref{thm:orthogonal-complement} gives
+\[
+p^*E\ \iso\ \gamma\oplus\gamma^{\perp},
+\qquad \rk\gamma^\perp=n-1 .
+\]
+
+\step{2} By Lemma~\ref{lem:PE-injective}, $p^*$ is injective on cohomology.
+
+\step{3} Repeat the construction with $\gamma^{\perp}$ in place of $E$: form
+$\mathbb P(\gamma^\perp)$, split off a further line, and so on. After $n-1$
+steps the pull-back of $E$ to
+\[
+B'=\mathbb P\big(\cdots\mathbb P(\gamma^\perp)\cdots\big)
+\]
+is a sum of $n$ line bundles, and the composite of the projections is injective
+on cohomology, being a composite of injective maps.
+\end{proof}
+
+Any identity between characteristic classes which holds for sums of line bundles
+therefore holds in general. This is the workhorse of the subject.
+
+\section{Cohomology of the Grassmannian}
+
+\begin{definition}
+A polynomial $p\in\Z_2[a_1,\dots,a_n]$ is \emph{symmetric} if it is invariant
+under all permutations of the variables. The \emph{elementary symmetric
+functions} are
+\[
+\sigma_1=\sum_i a_i,
+\qquad
+\sigma_2=\sum_{i<j}a_ia_j,
+\qquad\dots,\qquad
+\sigma_n=a_1a_2\cdots a_n .
+\]
+\end{definition}
+
+\begin{theorem}[fundamental theorem of symmetric polynomials, quoted]
+The subring of symmetric polynomials in $\Z_2[a_1,\dots,a_n]$ is freely
+generated by $\sigma_1,\dots,\sigma_n$:
+\[
+\Z_2[a_1,\dots,a_n]^{S_n}=\Z_2[\sigma_1,\dots,\sigma_n].
+\]
+\end{theorem}
+
+Recall that $H^*(\RP^\infty;\Z_2)=\Z_2[a]$ and that, by K\"unneth,
+\[
+H^*\big((\RP^\infty)^n;\Z_2\big)=\Z_2[a_1,\dots,a_n]
+\]
+with each $a_i$ of degree $1$.
+
+\begin{theorem}\label{thm:HGn}
+Let $h_n\colon(\RP^\infty)^n\to G_n$ classify
+$\gamma^1\oplus\dots\oplus\gamma^1$, one summand pulled back from each factor.
+Then
+\[
+h_n^*\colon H^*(G_n;\Z_2)\longrightarrow\Z_2[a_1,\dots,a_n]
+\]
+is injective with image the ring of symmetric polynomials. Consequently
+\[
+H^*(G_n;\Z_2)=\Z_2\big[\tilde\sigma_1,\dots,\tilde\sigma_n\big],
+\qquad
+\tilde\sigma_i:=(h_n^*)^{-1}(\sigma_i)\in H^i(G_n;\Z_2),
+\]
+and $\dim_{\Z_2}H^r(G_n;\Z_2)=p_n(r)$ for every $r$.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Injectivity comes from the splitting principle: a splitting map for the
+universal bundle factors through $h_n$, and an injective map cannot factor
+through a non-injective one. Symmetry of the image comes from permuting the
+factors, which does not change the bundle being classified. Finally the image is
+all of the symmetric polynomials by comparing dimensions with the cell count of
+Corollary~\ref{cor:HGn-rank}.
+\end{strategy}
+
+\step{1} \emph{Injectivity.} Let $f\colon B'\to G_n$ be a splitting map for
+$\gamma^n$ (Corollary~\ref{cor:splitting}), so
+$f^*\gamma^n\iso L_1\oplus\dots\oplus L_n$ and $f^*$ is injective. Let
+$g\colon B'\to(\RP^\infty)^n$ have $i$-th component a classifying map for
+$L_i$; then
+\[
+g^*\big(\gamma^1\oplus\dots\oplus\gamma^1\big)\iso L_1\oplus\dots\oplus L_n
+\iso f^*\gamma^n .
+\]
+So $f$ and $h_n\circ g$ both classify the same bundle over $B'$, hence are
+homotopic by Theorem~\ref{thm:universal}, giving $f^*=g^*\circ h_n^*$. Since
+$f^*$ is injective, so is $h_n^*$.
+
+\step{2} \emph{The image is symmetric.} A permutation $\rho$ of the factors of
+$(\RP^\infty)^n$ satisfies
+$\rho^*(\gamma^1\oplus\dots\oplus\gamma^1)\iso\gamma^1\oplus\dots\oplus\gamma^1$,
+since it merely reorders the summands. Hence $h_n\circ\rho\simeq h_n$ and
+$\rho^*h_n^*=h_n^*$. As $\rho^*$ permutes $a_1,\dots,a_n$, every element of the
+image is invariant under permutations, so
+\[
+\im h_n^*\ \subset\ \Z_2[\sigma_1,\dots,\sigma_n].
+\]
+
+\step{3} \emph{Dimension count.} In degree $r$, the symmetric polynomials have
+$\Z_2$-dimension equal to the number of monomials
+$\sigma_1^{d_1}\cdots\sigma_n^{d_n}$ with $\sum i\,d_i=r$, that is, to the
+number $p_n(r)$ of partitions of $r$ into at most $n$ parts (take $d_i$ parts
+equal to $i$). By Steps 1 and 2 together with
+Corollary~\ref{cor:HGn-rank},
+\[
+\dim H^r(G_n;\Z_2)\ \le\ p_n(r)
+\qquad\text{and}\qquad
+\dim \im h_n^*=\dim H^r(G_n;\Z_2).
+\]
+
+\step{4} \emph{Surjectivity onto the symmetric part.} It remains to produce
+classes mapping onto $\sigma_1,\dots,\sigma_n$. The mod-$2$ cellular boundary of
+the Schubert complex vanishes (quoted above, Milnor--Stasheff \S 6), so equality
+holds in Corollary~\ref{cor:HGn-rank}:
+$\dim H^r(G_n;\Z_2)=p_n(r)$. Combined with Step 3 this forces
+$\im h_n^*$ to be the whole degree-$r$ symmetric part, for every $r$. Hence
+$h_n^*$ is an isomorphism onto $\Z_2[\sigma_1,\dots,\sigma_n]$ and we may define
+$\tilde\sigma_i$ as its preimage of $\sigma_i$.
+\end{proof}
+
+\begin{remark}
+Step 4 is the one place where we import a computation. It can be avoided: the
+independent construction of Stiefel--Whitney classes by Steenrod squares in
+Lecture 7 produces classes $w_i(\gamma^n)\in H^i(G_n;\Z_2)$ with
+$h_n^*w_i(\gamma^n)=\sigma_i$, which gives the surjectivity of Step 4 directly,
+and then the equality $\dim H^r=p_n(r)$ becomes a corollary rather than an
+input. Either route closes the argument; only the order of exposition changes.
+\end{remark}
+
+\section{Existence and uniqueness of the SW classes}
+
+\begin{theorem}
+There is exactly one family of classes satisfying the axioms of
+Definition~\ref{def:sw-axioms}, namely
+\[
+w_i(\xi)=f_\xi^*\big(\tilde\sigma_i\big),
+\]
+where $f_\xi\colon B\to G_n$ is a classifying map for $\xi$.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Existence: three of the four axioms are immediate from the definition, and the
+fourth --- the product formula --- is proved in Lecture 6 by computing the
+effect on cohomology of the map $G_n\times G_{n'}\to G_{n+n'}$ classifying the
+direct sum. Uniqueness: naturality reduces everything to the universal bundle,
+the splitting principle reduces the universal bundle to sums of line bundles,
+and the product formula reduces sums of line bundles to a single line bundle,
+where normalization pins the answer down.
+\end{strategy}
+
+\step{1} \emph{Rank.} $\tilde\sigma_0=1$ and $H^*(G_n)$ has no generators beyond
+$\tilde\sigma_n$, so $w_0=1$ and $w_i=0$ for $i>n$ by definition.
+
+\step{2} \emph{Naturality.} If $\eta=g^*\xi$ then $f_\eta\simeq f_\xi\circ g$ by
+Theorem~\ref{thm:universal}, so
+$w_i(\eta)=f_\eta^*\tilde\sigma_i=g^*f_\xi^*\tilde\sigma_i=g^*w_i(\xi)$.
+
+\step{3} \emph{Normalization.} The inclusion $\RP^1\hookrightarrow\RP^\infty=G_1$
+classifies $\gamma^1_1$, and $\tilde\sigma_1=a$ generates
+$H^1(\RP^\infty;\Z_2)$, whose restriction to $H^1(\RP^1;\Z_2)$ is the generator;
+hence $w_1(\gamma^1_1)\neq0$.
+
+\step{4} \emph{Product formula.} Proved in Theorem~\ref{thm:whitney} of the next
+lecture.
+
+\step{5} \emph{Uniqueness.} Let $w_i'$ be any family satisfying the axioms. By
+naturality both families are determined by their values on the universal bundle
+$\gamma^n$, so it suffices to prove $w_i(\gamma^n)=w_i'(\gamma^n)$. Since
+$h_n^*$ is injective (Theorem~\ref{thm:HGn}), it suffices to compare after
+applying $h_n^*$, that is, to compare the classes of
+$\gamma^1\oplus\dots\oplus\gamma^1$ over $(\RP^\infty)^n$. By the product
+formula, both are determined by the classes of a single $\gamma^1\to\RP^\infty$.
+There only $w_1$ is in question, by the rank axiom, and naturality applied to
+$\gamma^1_1\to\gamma^1$ together with the normalization axiom forces
+$w_1'(\gamma^1)$ to be non-zero, hence equal to the generator $a$, which is
+$w_1(\gamma^1)$.
+\end{proof}

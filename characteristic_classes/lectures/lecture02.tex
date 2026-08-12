@@ -1,0 +1,494 @@
+\lecture
+
+\begin{guiding}
+Linear algebra has functors: duals, homomorphisms, tensor products. Do they act
+on vector bundles? And can we attach to every bundle algebraic invariants ---
+cohomology classes --- that detect twisting?
+\end{guiding}
+
+\section{Continuous functors of vector bundles}
+
+\begin{definition}
+Let $\Theta$ be the category whose objects are finite dimensional real vector
+spaces and whose morphisms are isomorphisms. A functor
+\[
+T\colon \Theta\times\dots\times\Theta\longrightarrow\Theta
+\]
+of $k$ variables is \emph{continuous} if $T(f_1,\dots,f_k)$ depends continuously
+on $f_1,\dots,f_k$, the latter being regarded as matrices.
+\end{definition}
+
+\begin{theorem}\label{thm:functor-bundle}
+Let $T$ be a continuous functor of $k$ variables and let $\xi_1,\dots,\xi_k$ be
+vector bundles over $B$. Then there is a vector bundle
+$T(\xi_1,\dots,\xi_k)$ over $B$ whose fibre over $b$ is
+$T\big(F_b(\xi_1),\dots,F_b(\xi_k)\big)$.
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+The set and the fibres are prescribed; what has to be produced is a topology.
+Local trivializations of the $\xi_i$ give candidate charts, and the only thing
+to check is that the change of chart is continuous --- which is exactly the
+continuity hypothesis on $T$.
+\end{strategy}
+
+\step{1} \emph{The set.} Put
+\[
+E=\bigsqcup_{b\in B}T\big(F_b(\xi_1),\dots,F_b(\xi_k)\big),
+\]
+with the obvious projection $\pi$ to $B$ and the vector space structure of
+$T(\dots)$ on each fibre.
+
+\step{2} \emph{Candidate charts.} Suppose $U\subset B$ trivializes all the
+$\xi_i$ simultaneously, with trivializations giving, for $b\in U$, isomorphisms
+$h_{ib}\colon\R^{n_i}\to F_b(\xi_i)$ depending continuously on $b$. Since $T$
+is a functor, applying it to these isomorphisms gives a linear isomorphism
+\[
+T(h_{1b},\dots,h_{kb})\colon
+T(\R^{n_1},\dots,\R^{n_k})\longrightarrow
+T\big(F_b(\xi_1),\dots,F_b(\xi_k)\big),
+\]
+and hence a bijection
+\[
+H_U\colon U\times T(\R^{n_1},\dots,\R^{n_k})\longrightarrow\pi^{-1}(U),
+\qquad
+(b,x)\longmapsto T(h_{1b},\dots,h_{kb})(x).
+\]
+
+\step{3} \emph{Compatibility of charts.} Let $U_1,U_2$ be two such open sets.
+On $U_1\cap U_2$ the composite $H_{U_1}^{-1}\circ H_{U_2}$ is
+\[
+(b,x)\longmapsto\Big(b,\ T\big(h^{(1)}_{1b}{}^{-1}h^{(2)}_{1b},\ \dots,\
+h^{(1)}_{kb}{}^{-1}h^{(2)}_{kb}\big)(x)\Big),
+\]
+using functoriality. Each $h^{(1)}_{ib}{}^{-1}h^{(2)}_{ib}$ is the transition
+isomorphism of $\xi_i$, which depends continuously on $b$; by continuity of $T$
+the whole expression depends continuously on $(b,x)$. The same applies to the
+inverse.
+
+\step{4} \emph{The topology.} Declare a subset of $E$ open when its preimage
+under every $H_U$ is open. By Step 3 the charts $H_U$ are then homeomorphisms
+onto their images, and they are fibrewise linear isomorphisms by construction.
+Hence $E$ is a vector bundle with the prescribed fibres.
+\end{proof}
+
+\begin{example}
+The functor $V\mapsto\Hom(V,\R)$ yields the \emph{dual bundle} $\xi^*$; two
+variables give $\xi\otimes\eta$, $\Hom(\xi,\eta)$, $\xi\oplus\eta$, and so on.
+\end{example}
+
+\begin{remark}
+If $\xi$ is Euclidean, the metric gives an isomorphism $\xi\iso\xi^*$, namely
+$(b,v)\mapsto(b,\langle v,\cdot\rangle_b)$; it is continuous and fibrewise an
+isomorphism, so Lemma~\ref{lem:fibrewise-iso} applies. Over a paracompact base a
+Euclidean metric always exists, by patching local metrics with a partition of
+unity.
+\end{remark}
+
+\section{The Stiefel--Whitney axioms}
+
+We now \emph{postulate} a theory of invariants and derive consequences; the
+construction of the classes will occupy Lectures 4--6. This shortcut lets us
+prove interesting theorems immediately, which is also how the subject developed
+historically.
+
+\begin{definition}[Axioms]\label{def:sw-axioms}
+To each $\R^n$-bundle $\xi$ over a base $B$ there are associated cohomology
+classes
+\[
+w_i(\xi)\in H^i(B;\Z_2),\qquad i\ge0,
+\]
+the \emph{Stiefel--Whitney classes}, subject to:
+
+\begin{enumerate}
+\item[(A1)] \textbf{Rank.} $w_0(\xi)=1$ and $w_i(\xi)=0$ for $i>n=\rk\xi$.
+
+\item[(A2)] \textbf{Naturality.} If $\hat f\colon\xi\to\eta$ is a bundle map
+with base map $f$, then $w_i(\xi)=f^*w_i(\eta)$; equivalently
+$w_i(f^*\eta)=f^*w_i(\eta)$.
+
+\item[(A3)] \textbf{Whitney product formula.} If $\xi,\eta$ have the same base,
+\[
+w_k(\xi\oplus\eta)=\sum_{i=0}^{k}w_i(\xi)\smile w_{k-i}(\eta).
+\]
+
+\item[(A4)] \textbf{Normalization.} $w_1(\gamma^1_1)\neq0$ for the canonical
+line bundle $\gamma^1_1\to\RP^1$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+If $\xi\iso\eta$ then $w_i(\xi)=w_i(\eta)$ for all $i$.
+\end{proposition}
+
+\begin{proof}
+An isomorphism is a bundle map whose base map is the identity, so (A2) gives
+$w_i(\xi)=\mathrm{id}^*w_i(\eta)=w_i(\eta)$.
+\end{proof}
+
+\begin{proposition}\label{prop:trivial-vanishes}
+If $\xi$ is trivial then $w_i(\xi)=0$ for every $i>0$.
+\end{proposition}
+
+\begin{proof}
+\begin{strategy}
+A trivial bundle is pulled back from a bundle over a point, and a point has no
+cohomology in positive degrees.
+\end{strategy}
+
+\step{1} Write $\xi\iso B\times\R^n$ and let $\eps'$ denote the bundle
+$\mathrm{pt}\times\R^n$ over a point. The map
+$B\times\R^n\to\mathrm{pt}\times\R^n$, $(b,x)\mapsto(\mathrm{pt},x)$, is a
+bundle map whose base map is the constant map $c\colon B\to\mathrm{pt}$.
+
+\step{2} By (A2), $w_i(\xi)=c^*w_i(\eps')$. Since
+$H^i(\mathrm{pt};\Z_2)=0$ for $i>0$, we have $w_i(\eps')=0$ for $i>0$, hence
+$w_i(\xi)=0$.
+\end{proof}
+
+\begin{proposition}[Stability]\label{prop:stability}
+If $\eps$ is a trivial bundle then $w_i(\eps\oplus\eta)=w_i(\eta)$.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:trivial-vanishes}, $w_0(\eps)=1$ and $w_j(\eps)=0$ for
+$j>0$; the Whitney formula (A3) then reduces to the single term
+$w_0(\eps)\smile w_i(\eta)=w_i(\eta)$.
+\end{proof}
+
+\begin{proposition}\label{prop:sections-kill-top}
+If a Euclidean $\R^n$-bundle $\xi$ admits $k$ nowhere dependent sections, then
+\[
+w_{n}(\xi)=w_{n-1}(\xi)=\dots=w_{n-k+1}(\xi)=0 .
+\]
+\end{proposition}
+
+\begin{proof}
+\begin{strategy}
+The sections span a trivial sub-bundle; splitting it off drops the rank by $k$,
+and the rank axiom does the rest.
+\end{strategy}
+
+\step{1} Let $s_1,\dots,s_k$ be the sections and let $\eps^k\subset\xi$ be the
+sub-bundle whose fibre over $b$ is $\spann(s_1(b),\dots,s_k(b))$. It is a
+sub-bundle of rank $k$, trivialized by
+$(b,x)\mapsto\sum x_i s_i(b)$ as in Theorem~\ref{thm:trivial-iff-sections}.
+
+\step{2} Let $\eta=(\eps^k)^\perp$, a bundle of rank $n-k$ with
+$\eps^k\oplus\eta\iso\xi$ by Theorem~\ref{thm:orthogonal-complement}.
+
+\step{3} By Proposition~\ref{prop:stability},
+$w_i(\xi)=w_i(\eps^k\oplus\eta)=w_i(\eta)$, and by (A1) applied to $\eta$ this
+vanishes for $i>n-k$.
+\end{proof}
+
+\begin{remark}
+Read contrapositively: if $w_{n-k}(TM)\neq0$ then $M$ admits at most $k$
+everywhere independent vector fields. Stiefel--Whitney classes are
+\emph{obstructions to finding independent sections}, and this is the historical
+origin of the theory.
+\end{remark}
+
+\section{The total class and Whitney duality}
+
+Let $H^{\Pi}(B;\Z_2)$ denote the ring of formal series
+$a=a_0+a_1+a_2+\cdots$ with $a_i\in H^i(B;\Z_2)$, with the evident sum and
+product; the product is commutative and associative. The \emph{total
+Stiefel--Whitney class} of an $\R^n$-bundle is
+\[
+w(\xi)=1+w_1(\xi)+\dots+w_n(\xi)\ \in\ H^{\Pi}(B;\Z_2),
+\]
+and the Whitney formula (A3) becomes the single identity
+\[
+w(\xi\oplus\eta)=w(\xi)\,w(\eta).
+\]
+
+\begin{proposition}\label{prop:invertible}
+The series in $H^\Pi(B;\Z_2)$ with leading term $1$ form an abelian group under
+multiplication.
+\end{proposition}
+
+\begin{proof}
+\begin{strategy}
+Solve $w\bar w=1$ degree by degree; each equation determines the next unknown
+uniquely.
+\end{strategy}
+
+\step{1} Given $w=1+w_1+w_2+\cdots$, we seek $\bar w=1+\bar w_1+\bar w_2+\cdots$
+with $w\bar w=1$. Comparing terms of degree $k\ge1$ gives
+\[
+\bar w_k+\bar w_{k-1}w_1+\dots+\bar w_1 w_{k-1}+w_k=0 .
+\]
+
+\step{2} This determines $\bar w_k$ uniquely in terms of $\bar w_1,\dots,
+\bar w_{k-1}$ and $w_1,\dots,w_k$, so by induction $\bar w$ exists and is
+unique. The first values are
+\[
+\bar w_1=w_1,
+\qquad
+\bar w_2=w_1^2+w_2,
+\qquad
+\bar w_3=w_1^3+w_3 .
+\]
+
+\step{3} Associativity and commutativity are inherited from
+$H^*(B;\Z_2)$, and the identity element is $1$.
+\end{proof}
+
+\begin{lemma}[Whitney duality]\label{lem:whitney-duality}
+If $M\subset\R^N$ is a smooth submanifold with normal bundle $\nu$, then
+\[
+w(\nu)=\bar w(TM),
+\qquad\text{that is,}\qquad
+w(TM)\,w(\nu)=1 .
+\]
+\end{lemma}
+
+\begin{proof}
+By Example~\ref{ex:normal-bundle}, $TM\oplus\nu\iso T\R^N|_M$, which is trivial.
+Proposition~\ref{prop:trivial-vanishes} gives $w(TM\oplus\nu)=1$, and the
+Whitney formula turns this into $w(TM)w(\nu)=1$; now apply
+Proposition~\ref{prop:invertible}.
+\end{proof}
+
+\begin{example}
+The normal bundle of $S^n\subset\R^{n+1}$ is trivial, spanned by the outward
+unit normal, so $w(\nu)=1$ and therefore $w(TS^n)=1$: all Stiefel--Whitney
+classes of spheres vanish. Yet $TS^2$ is non-trivial. The classes are powerful,
+but they are not complete invariants.
+\end{example}
+
+\section{Computations on projective spaces}
+
+Recall $H^*(\RP^n;\Z_2)=\Z_2[a]/(a^{n+1})$ with $a$ the generator of
+$H^1(\RP^n;\Z_2)$.
+
+\begin{example}\label{ex:w-gamma}
+$w(\gaman)=1+a$.
+
+Indeed, the inclusion $j\colon\RP^1\hookrightarrow\RP^n$ induced by
+$\R^2\subset\R^{n+1}$ is covered by a bundle map
+$\gamma^1_1\to\gaman$, so (A2) gives $w_1(\gamma^1_1)=j^*w_1(\gaman)$. By (A4)
+the left side is non-zero, so $w_1(\gaman)\neq0$; since
+$H^1(\RP^n;\Z_2)=\Z_2\{a\}$, this forces $w_1(\gaman)=a$. The bundle has rank
+$1$, so $w_i=0$ for $i\ge2$ by (A1).
+\end{example}
+
+\begin{example}\label{ex:w-gamma-perp}
+Let $\gamma^\perp$ be the orthogonal complement of $\gaman$ inside the trivial
+bundle $\RP^n\times\R^{n+1}$. Then
+\[
+w(\gamma^\perp)=1+a+a^2+\dots+a^n .
+\]
+Indeed $\gaman\oplus\gamma^\perp$ is trivial, so
+$w(\gamma^\perp)=\overline{(1+a)}$, and one checks directly in
+$\Z_2[a]/(a^{n+1})$ that
+\[
+(1+a)(1+a+\dots+a^n)=1+a^{n+1}=1 .
+\]
+\end{example}
+
+\begin{lemma}\label{lem:TRPn}
+There are isomorphisms
+\[
+T\RP^n\ \iso\ \Hom(\gaman,\gamma^\perp)
+\qquad\text{and}\qquad
+T\RP^n\oplus\eps^1\ \iso\
+\underbrace{\gaman\oplus\dots\oplus\gaman}_{n+1},
+\]
+where $\eps^1$ is the trivial line bundle.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+Describe tangent vectors of $\RP^n$ as antipodal pairs of tangent vectors of
+$S^n$, and observe that such a pair is exactly a linear map from the line
+through $x$ to its orthogonal complement. The second isomorphism then comes from
+adding the summand $\Hom(\gaman,\gaman)$, which is trivial, and using
+$\gamma^\perp\oplus\gaman=\eps^{n+1}$.
+\end{strategy}
+
+\step{1} \emph{Tangent vectors upstairs and downstairs.} Let $q\colon S^n\to
+\RP^n$ be the quotient map. Since $q$ is a local diffeomorphism, $Dq$ identifies
+\[
+T\RP^n=\big\{\,\{(x,v),(-x,-v)\}\ \big|\ x\cdot x=1,\ x\cdot v=0\,\big\},
+\]
+because $Dq(x,v)=Dq(-x,-v)$ and these are the only identifications.
+
+\step{2} \emph{From pairs to homomorphisms.} Given such a pair, let
+$L=\R x\subset\R^{n+1}$ be the corresponding line, that is, the fibre of $\gaman$
+over $\{\pm x\}$, and define a linear map
+\[
+\ell\colon L\longrightarrow L^\perp,
+\qquad
+\ell(x)=v .
+\]
+Replacing $(x,v)$ by $(-x,-v)$ gives the same $\ell$, since
+$\ell(-x)=-v$. Conversely $\ell$ determines the pair. This assignment is a
+bijection
+\[
+T\RP^n\longrightarrow \Hom(\gaman,\gamma^\perp),
+\]
+continuous with continuous inverse in local trivializations, and linear on each
+fibre; Lemma~\ref{lem:fibrewise-iso} makes it an isomorphism.
+
+\step{3} \emph{The trivial summand.} The line bundle
+$\Hom(\gaman,\gaman)$ has the nowhere zero section $b\mapsto\mathrm{id}$, hence
+is trivial by Theorem~\ref{thm:trivial-iff-sections}:
+$\Hom(\gaman,\gaman)\iso\eps^1$.
+
+\step{4} \emph{Adding up.} Using Step 2, Step 3 and additivity of $\Hom$ in the
+second variable,
+\[
+T\RP^n\oplus\eps^1
+\iso\Hom(\gaman,\gamma^\perp)\oplus\Hom(\gaman,\gaman)
+\iso\Hom\big(\gaman,\ \gamma^\perp\oplus\gaman\big),
+\]
+and the right-hand side is $\Hom\big(\gaman,\eps^{n+1}\big)$,
+since $\gamma^\perp\oplus\gaman$ is the trivial bundle
+$\RP^n\times\R^{n+1}$.
+
+\step{5} \emph{Splitting the trivial bundle.} Finally
+\[
+\Hom\big(\gaman,\eps^{n+1}\big)
+\iso\bigoplus_{i=1}^{n+1}\Hom\big(\gaman,\eps^1\big)
+=\bigoplus_{i=1}^{n+1}(\gaman)^*
+\iso\bigoplus_{i=1}^{n+1}\gaman,
+\]
+the last step because a line bundle with a Euclidean metric is isomorphic to its
+own dual.
+\end{proof}
+
+\begin{theorem}\label{thm:w-RPn}
+$w(T\RP^n)=(1+a)^{n+1}$, that is,
+$w_i(T\RP^n)=\binom{n+1}{i}a^i\bmod 2$.
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{prop:stability} and Lemma~\ref{lem:TRPn},
+\[
+w(T\RP^n)=w\big(T\RP^n\oplus\eps^1\big)
+=w\big((\gaman)^{\oplus(n+1)}\big)
+=w(\gaman)^{n+1}=(1+a)^{n+1},
+\]
+using the Whitney formula and Example~\ref{ex:w-gamma}.
+\end{proof}
+
+The mod-2 Pascal triangle
+\[
+\begin{array}{ccccccccc}
+ & & & &1& & & &\\
+ & & &1& &1& & &\\
+ & &1& &0& &1& &\\
+ &1& &1& &1& &1&\\
+1& &0& &0& &0& &1
+\end{array}
+\]
+already gives $w(T\RP^3)=1$ and $w(T\RP^4)=1+a+a^4$.
+
+\begin{corollary}[Stiefel]\label{cor:parallelizable}
+If $\RP^n$ is parallelizable then $n+1$ is a power of $2$.
+\end{corollary}
+
+\begin{proof}
+\begin{strategy}
+Parallelizable means $T\RP^n$ trivial, hence $w=1$. Over $\Z_2$ the Frobenius
+identity $(1+a)^{2^r}=1+a^{2^r}$ lets us factor $(1+a)^{n+1}$ and exhibit a
+surviving term unless $n+1$ is a power of $2$.
+\end{strategy}
+
+\step{1} If $T\RP^n$ is trivial then $w(T\RP^n)=1$ by
+Proposition~\ref{prop:trivial-vanishes}, so $(1+a)^{n+1}=1$ in
+$\Z_2[a]/(a^{n+1})$.
+
+\step{2} Write $n+1=2^r m$ with $m$ odd. Since squaring is additive mod $2$,
+\[
+(1+a)^{2^r}=1+a^{2^r},
+\]
+and therefore
+\[
+(1+a)^{n+1}=\big(1+a^{2^r}\big)^{m}
+=1+m\,a^{2^r}+\binom{m}{2}a^{2\cdot 2^r}+\cdots
+\]
+
+\step{3} Suppose $m>1$. Then $2^r<n+1$, so $2^r\le n$ and the class $a^{2^r}$ is
+non-zero in $\Z_2[a]/(a^{n+1})$. Its coefficient is $m\equiv1\bmod2$, so
+$(1+a)^{n+1}\neq1$, contradicting Step 1. Hence $m=1$ and $n+1=2^r$.
+\end{proof}
+
+\begin{remark}
+The converse is false: the only parallelizable real projective spaces are
+$\RP^1,\RP^3,\RP^7$, corresponding to $\C$, the quaternions and the octonions.
+This requires deeper tools (Bott--Milnor, Kervaire, Adams) and is not proved
+here.
+\end{remark}
+
+\begin{example}[Immersions of $\RP^9$]\label{ex:immersion-RP9}
+Suppose $M^n$ immerses in $\R^{n+k}$. By Lemma~\ref{lem:normal-immersion} the
+normal bundle $\nu_f$ has rank $k$, and $TM\oplus\nu_f$ is trivial, so that
+$w_i(\nu_f)=\bar w_i(TM)$. Therefore
+\[
+\bar w_i(TM)=0\qquad\text{for } i>k .
+\]
+For $M=\RP^9$: since $10=8+2$,
+\[
+w(T\RP^9)=(1+a)^{10}=(1+a^{8})(1+a^{2})=1+a^{2}+a^{8}
+\]
+in $\Z_2[a]/(a^{10})$. Inverting, with $b=a^2$ and $b^5=a^{10}=0$, the equation
+$(1+b+b^4)\,\bar w=1$ gives successively the coefficients $1,1,1,1,0$, so
+\[
+\bar w(T\RP^9)=1+a^{2}+a^{4}+a^{6}.
+\]
+The top non-zero term sits in degree $6$, so $k\ge6$: the space $\RP^9$ cannot be
+immersed in $\R^{9+k}$ for $k<6$.
+\end{example}
+
+\begin{example}[Immersions of $\RP^{2^r}$]
+Let $n=2^r$. Then
+\[
+w(T\RP^n)=(1+a)^{2^r+1}=\big(1+a^{2^r}\big)(1+a)=1+a+a^{n}
+\]
+in $\Z_2[a]/(a^{n+1})$, and one checks
+\[
+\bar w(T\RP^{n})=1+a+a^2+\dots+a^{n-1},
+\]
+since $(1+a)(1+a+\dots+a^{n-1})=1+a^n$ telescopes and
+$a^{n}(1+a+\dots+a^{n-1})=a^n$ modulo $a^{n+1}$, so the two extra terms cancel.
+The top non-zero term is $a^{n-1}$, so any immersion of $\RP^{2^r}$ needs
+$k\ge n-1$, that is, an ambient $\R^{2n-1}$. This is exactly the bound of
+Whitney's immersion theorem, so projective spaces of $2$-power dimension are the
+worst case.
+\end{example}
+
+\section{Stiefel--Whitney numbers}
+
+\begin{guiding}
+Classes live in the cohomology of $M$, which makes them awkward to compare
+between different manifolds. Can we extract from them plain \emph{numbers}, and
+what do those numbers see?
+\end{guiding}
+
+\begin{definition}
+Let $M$ be a closed smooth $n$-manifold with fundamental class
+$\mu_M\in H_n(M;\Z_2)$. For every partition
+$r_1+2r_2+\dots+nr_n=n$ the associated \emph{Stiefel--Whitney number} is
+\[
+w_1^{r_1}\cdots w_n^{r_n}[M]
+:=\big\langle\, w_1(TM)^{r_1}\smile\cdots\smile w_n(TM)^{r_n},\ \mu_M\,\big\rangle
+\ \in\ \Z_2 .
+\]
+Two $n$-manifolds \emph{have the same Stiefel--Whitney numbers} if these agree
+for every such $(r_1,\dots,r_n)$.
+\end{definition}
+
+\begin{example}
+For $n$ even, $w_n(T\RP^n)=\binom{n+1}{n}a^n=(n+1)a^n\neq0$ and likewise
+$w_1(T\RP^n)^n=(n+1)^na^n\neq0$, so $\RP^n$ has non-zero Stiefel--Whitney
+numbers. For $n$ odd they all vanish, as we verify at the start of the next
+lecture --- and this is no accident: odd projective spaces are boundaries.
+\end{example}
+
+In Lecture 3 we prove that Stiefel--Whitney numbers vanish on boundaries, and
+state Thom's theorem that they classify closed manifolds up to unoriented
+cobordism.

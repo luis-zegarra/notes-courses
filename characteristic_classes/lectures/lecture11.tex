@@ -1,0 +1,321 @@
+\lecture
+
+\begin{guiding}
+Time to harvest. First the model computation of the whole theory,
+$c(T\CP^n)=(1+a)^{n+1}$ and $p(T\CP^n)=(1+u^2)^{n+1}$. Then we turn classes into
+numbers and prove genuinely geometric statements: $\CP^{2n}$ admits no
+orientation reversing diffeomorphism, and it is not an oriented boundary.
+Finally we build the classes $S_I$, designed to detect products.
+\end{guiding}
+
+\section{The tangent bundle of complex projective space}
+
+\begin{theorem}\label{thm:cTCPn}
+Let $a=-c_1(\gamma_1\to\CP^n)$, a generator of $H^2(\CP^n;\Z)$. Then
+\[
+c\big(T\CP^n\big)=(1+a)^{n+1}.
+\]
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Repeat the argument of Lemma~\ref{lem:TRPn} over $\C$: a tangent direction at a
+line $L\subset\C^{n+1}$ is a complex linear map $L\to L^\perp$; adding the
+trivial summand $\Hom_\C(\gamma_1,\gamma_1)$ produces a sum of $n+1$ copies of
+the dual of $\gamma_1$, which is the conjugate bundle.
+\end{strategy}
+
+\step{1} \emph{The tangent bundle.} Exactly as in the real case,
+\[
+T\CP^n\ \iso\ \Hom_\C\big(\gamma_1,\gamma_1^{\perp}\big),
+\]
+where $\gamma_1^\perp$ is the complex orthogonal complement of $\gamma_1$ inside
+the trivial bundle $\CP^n\times\C^{n+1}$, taken with respect to a Hermitian
+metric.
+
+\step{2} \emph{Adding a trivial line.} The bundle
+$\Hom_\C(\gamma_1,\gamma_1)$ has the nowhere zero section $\mathrm{id}$, hence
+is the trivial complex line bundle $\eps^1_\C$. Therefore
+\[
+T\CP^n\oplus\eps^1_\C
+\iso\Hom_\C\big(\gamma_1,\ \gamma_1^\perp\oplus\gamma_1\big)
+=\Hom_\C\big(\gamma_1,\ \C^{n+1}\big)
+\iso\big(\gamma_1^{\,*}\big)^{\oplus(n+1)} .
+\]
+
+\step{3} \emph{The dual is the conjugate.} A Hermitian metric $h$ identifies
+$\gamma_1^{\,*}=\Hom_\C(\gamma_1,\C)$ with $\overline{\gamma_1}$: the map
+$v\mapsto h(\cdot,v)$ is conjugate linear in $v$, hence complex linear as a map
+into the conjugate bundle. By Proposition~\ref{prop:conjugate},
+$c_1(\overline{\gamma_1})=-c_1(\gamma_1)=a$.
+
+\step{4} \emph{Conclusion.} Using Step 2, the Whitney formula and Step 3,
+\[
+c\big(T\CP^n\big)=c\big(T\CP^n\oplus\eps^1_\C\big)
+=c\big(\overline{\gamma_1}\big)^{n+1}=(1+a)^{n+1}.
+\]
+\end{proof}
+
+\begin{theorem}\label{thm:pTCPn}
+With $u=a$ as above,
+\[
+p\big(T\CP^n\big)=(1+u^2)^{n+1},
+\qquad\text{i.e.}\qquad
+p_k\big(T\CP^n\big)=\binom{n+1}{k}u^{2k}.
+\]
+\end{theorem}
+
+\begin{proof}
+By Corollary~\ref{cor:pontryagin-of-complex} applied to $E=T\CP^n$,
+\[
+1-p_1+p_2-\cdots
+=c\big(T\CP^n\big)\ c\big(\overline{T\CP^n}\big)
+=(1+u)^{n+1}(1-u)^{n+1}=(1-u^2)^{n+1},
+\]
+where the middle equality uses Theorem~\ref{thm:cTCPn} and
+Proposition~\ref{prop:conjugate}. Comparing the coefficients of $u^{2k}$ on both
+sides, the sign $(-1)^k$ occurs on each, so
+$p_k=\binom{n+1}{k}u^{2k}$.
+\end{proof}
+
+\begin{example}
+$p(T\CP^5)=(1+u^2)^6=1+6u^2+15u^4$, the higher terms vanishing in
+$H^*(\CP^5;\Z)$. In contrast with spheres, Pontryagin classes see projective
+spaces very clearly.
+\end{example}
+
+\begin{remark}\label{rem:two-orientations}
+For an oriented real bundle $V$ of rank $n$ there are two natural orientations
+on $V\otimes\C\iso V\oplus V$: the complex one, given by
+$v_1,Jv_1,\dots,v_n,Jv_n$, and the direct sum one, given by
+$v_1,\dots,v_n,Jv_1,\dots,Jv_n$. Reordering one into the other requires
+$n(n-1)/2$ transpositions, so the two differ by the sign $(-1)^{n(n-1)/2}$.
+\end{remark}
+
+\begin{lemma}\label{lem:pn-euler-square}
+If $V$ is an oriented real bundle of rank $2n$ then $p_n(V)=e(V)^2$.
+\end{lemma}
+
+\begin{proof}
+By definition $p_n(V)=(-1)^nc_{2n}(V\otimes\C)$, and
+$c_{2n}=e$ for a complex bundle of rank $2n$ by
+Theorem~\ref{thm:e-gamma-n}, computed with the complex orientation. By
+Remark~\ref{rem:two-orientations} with $n$ replaced by $2n$, the complex and sum
+orientations differ by $(-1)^{2n(2n-1)/2}=(-1)^n$, so
+\[
+p_n(V)=(-1)^n\cdot(-1)^n\,e\big(V\oplus V\big)=e(V)^2,
+\]
+using $e(V\oplus V)=e(V)\smile e(V)$ from
+Theorem~\ref{thm:euler-properties}(5).
+\end{proof}
+
+\section{Chern numbers and Pontryagin numbers}
+
+\begin{definition}
+Let $X$ be a closed almost complex manifold of complex dimension $n$, so that
+$TX$ carries a complex structure, and let $I=(i_1,\dots,i_r)$ be a partition of
+$n$. The \emph{Chern number} is
+\[
+C_I(X)=\big\langle c_{i_1}(TX)\smile\cdots\smile c_{i_r}(TX),\ [X]\big\rangle
+\in\Z,
+\]
+where $[X]$ is the fundamental class of the complex orientation.
+\end{definition}
+
+\begin{definition}
+Let $M^{4n}$ be closed and oriented and $I=(i_1,\dots,i_r)$ a partition of $n$.
+The \emph{Pontryagin number} is
+\[
+P_I(M)=\big\langle p_{i_1}(TM)\cdots p_{i_r}(TM),\ [M]\big\rangle\in\Z .
+\]
+\end{definition}
+
+\begin{example}
+By Theorem~\ref{thm:cTCPn}, $C_I(\CP^n)=\prod_j\binom{n+1}{i_j}>0$ for every
+partition $I$ of $n$; and by Theorem~\ref{thm:pTCPn},
+$P_I(\CP^{2n})=\prod_j\binom{2n+1}{i_j}\neq0$ for every partition $I$ of $n$.
+\end{example}
+
+\begin{remark}
+For an oriented bundle $V$ and its reverse $\bar V$ one has $p_i(V)=p_i(\bar V)$,
+since the complexification does not see the orientation. Reversing the
+orientation of the \emph{manifold}, however, reverses $[M]$ and therefore
+changes the sign of every Pontryagin number.
+\end{remark}
+
+\begin{lemma}\label{lem:no-orientation-reversal}
+If some Pontryagin number of $M^{4n}$ is non-zero, then $M$ admits no
+orientation reversing diffeomorphism.
+\end{lemma}
+
+\begin{proof}
+Let $f\colon M\to M$ be a diffeomorphism. Its differential is a bundle
+isomorphism $TM\iso f^*TM$, so $f^*p_i(TM)=p_i(f^*TM)=p_i(TM)$. If moreover $f$
+reverses orientation then $f_*[M]=-[M]$, whence for every $I$
+\[
+P_I(M)=\big\langle p_I(TM),[M]\big\rangle
+=\big\langle f^*p_I(TM),[M]\big\rangle
+=\big\langle p_I(TM),f_*[M]\big\rangle
+=-P_I(M),
+\]
+forcing all Pontryagin numbers to vanish.
+\end{proof}
+
+\begin{corollary}
+$\CP^{2n}$ admits no orientation reversing diffeomorphism. By contrast
+$\CP^{2n+1}$ does, since its Pontryagin numbers live in the wrong dimension to
+obstruct anything.
+\end{corollary}
+
+\begin{lemma}\label{lem:pontryagin-boundary}
+If $M^{4n}$ is the boundary of a compact oriented $(4n+1)$-manifold $B$, then
+all Pontryagin numbers of $M$ vanish.
+\end{lemma}
+
+\begin{proof}
+\begin{strategy}
+The same argument as Theorem~\ref{thm:boundary-numbers-vanish}, now with
+integral coefficients, which is why orientations are needed: the normal bundle
+of the boundary is canonically oriented by the outward direction.
+\end{strategy}
+
+\step{1} Along $M=\partial B$ the outward pointing direction trivializes the
+normal bundle, so $TB|_M\iso TM\oplus\eps^1$ as oriented bundles and
+$i^*p_j(TB)=p_j(TM)$ for the inclusion $i\colon M\hookrightarrow B$.
+
+\step{2} With $\Z$ coefficients, $\partial[B]=[M]$ for the fundamental class
+$[B]\in H_{4n+1}(B,M;\Z)$ of the compact oriented manifold with boundary.
+
+\step{3} For $v=p_{i_1}(TB)\cdots p_{i_r}(TB)\in H^{4n}(B;\Z)$,
+\[
+P_I(M)=\big\langle i^*v,[M]\big\rangle
+=\big\langle i^*v,\partial[B]\big\rangle
+=\big\langle\delta\,i^*v,[B]\big\rangle=0,
+\]
+since $\delta\circ i^*=0$ by exactness of the sequence of the pair $(B,M)$.
+\end{proof}
+
+\begin{example}
+$\CP^{2n}$ is not an oriented boundary. On the other hand
+$\CP^{2n}\sqcup(-\CP^{2n})=\partial\big(\CP^{2n}\times[0,1]\big)$, so in the
+oriented cobordism group $[\CP^{2n}]+[-\CP^{2n}]=0$, while
+$2[\CP^{2n}]\neq0$: by Lemma~\ref{lem:no-orientation-reversal} the two
+orientations of $\CP^{2n}$ really are different.
+\end{example}
+\section[The symmetric function classes SI]{\texorpdfstring{The symmetric function classes $S_I$}{The symmetric function classes SI}}
+
+
+\begin{guiding}
+Chern numbers of a product mix the classes of the two factors in a complicated
+way. Is there a family of characteristic classes adapted to sums and products,
+one that vanishes on non-trivial products?
+\end{guiding}
+
+For partitions $J=(j_1,\dots,j_s)$ and $K=(k_1,\dots,k_t)$ write $JK$ for the
+concatenated partition $(j_1,\dots,j_s,k_1,\dots,k_t)$.
+
+\begin{definition}
+For a partition $I=(i_1,\dots,i_r)$ let
+\[
+S_I(u_1,\dots,u_n)=\sum u_{\alpha_1}^{i_1}\cdots u_{\alpha_r}^{i_r}
+\]
+be the smallest symmetric polynomial containing the monomial
+$u_1^{i_1}\cdots u_r^{i_r}$, each distinct monomial appearing exactly once.
+Being symmetric, it is a polynomial in $\sigma_1,\dots,\sigma_n$, and for a
+complex bundle $E$ we set
+\[
+S_I(E):=S_I\big(c_1(E),\dots,c_n(E)\big)\in H^{2|I|}(B).
+\]
+Equivalently $S_I(E)=f^*S_I(\tilde\sigma_1,\dots,\tilde\sigma_n)$ for a
+classifying map $f$. For instance $S_{(1)}=\sigma_1$,
+$S_{(1,1)}=\sigma_2$, and $S_{(2)}=\sigma_1^2-2\sigma_2$, so
+$S_{(2)}(E)=c_1^2-2c_2$.
+\end{definition}
+
+\begin{theorem}\label{thm:SI-sum}
+For complex bundles $E,E'$ over the same base,
+\[
+S_I\big(E\oplus E'\big)=\sum_{JK=I}S_J(E)\smile S_K(E').
+\]
+\end{theorem}
+
+\begin{proof}
+\begin{strategy}
+Verify the identity for sums of line bundles, where the Chern roots of
+$E\oplus E'$ are the union of those of $E$ and $E'$; the combinatorics is the
+distribution of the exponents of $I$ between the two groups of roots. The
+splitting principle then gives the general case.
+\end{strategy}
+
+\step{1} \emph{Reduction to roots.} By the splitting principle
+(Remark~\ref{rem:complex-splitting}) there is a map $f$, injective on cohomology,
+such that $f^*E$ and $f^*E'$ split into line bundles, with Chern roots
+$u'_1,\dots,u'_n$ and $u''_1,\dots,u''_{n'}$. The Chern roots of the sum are all
+of these together, so it suffices to prove the corresponding polynomial identity.
+
+\step{2} \emph{Distributing the exponents.} By definition, $S_I$ evaluated on
+the combined variables is the sum of all distinct monomials
+$v_{\alpha_1}^{i_1}\cdots v_{\alpha_r}^{i_r}$, where each $v_{\alpha}$ is one of
+the $u'$ or one of the $u''$ and the indices are distinct. Group the terms
+according to which exponents are assigned to primed variables: this is exactly a
+splitting of the partition $I$ into a sub-partition $J$ used on the $u'$ and the
+complementary $K$ used on the $u''$. Summing over all such splittings gives
+\[
+S_I(u',u'')=\sum_{JK=I}S_J(u')\,S_K(u''),
+\]
+each monomial being counted once on both sides.
+
+\step{3} \emph{Back to bundles.} Applying $f^*$ and using its injectivity gives
+the identity for $E,E'$.
+\end{proof}
+
+\begin{corollary}\label{cor:Sn-additive}
+For a partition with a single part, $S_{(m)}(E\oplus E')=S_{(m)}(E)+S_{(m)}(E')$,
+since the only splittings of $(m)$ are $J=(m),K=\emptyset$ and the reverse.
+\end{corollary}
+
+\begin{definition}
+For a closed complex manifold $X$ of complex dimension $m$ put
+\[
+S_m[X]:=\big\langle S_{(m)}\big(c(TX)\big),\ [X]\big\rangle\in\Z .
+\]
+\end{definition}
+
+\begin{corollary}\label{cor:Sn-product-vanishes}
+If $K^m$ and $L^{n}$ are closed complex manifolds of positive dimension then
+$S_{m+n}\big[K\times L\big]=0$.
+\end{corollary}
+
+\begin{proof}
+Since $T(K\times L)=p_1^*TK\oplus p_2^*TL$,
+Corollary~\ref{cor:Sn-additive} gives
+\[
+S_{(m+n)}\big(T(K\times L)\big)
+=p_1^*S_{(m+n)}(TK)+p_2^*S_{(m+n)}(TL).
+\]
+The first summand lies in the image of $H^{2(m+n)}(K)$, which vanishes because
+$K$ has complex dimension $m<m+n$; likewise for the second. Hence the class
+itself is zero.
+\end{proof}
+
+\begin{example}
+$S_n[\CP^n]=n+1\neq0$, because $T\CP^n\oplus\eps^1$ has $n+1$ Chern roots all
+equal to $a$, so $S_{(n)}=\sum a^n=(n+1)a^n$. By
+Corollary~\ref{cor:Sn-product-vanishes}, $\CP^n$ is not a non-trivial product of
+complex manifolds.
+\end{example}
+
+\begin{theorem}\label{thm:matrix-nondegenerate}
+Let $X^1,\dots,X^n$ be closed complex manifolds with $\dim_\C X^k=k$ and
+$S_k[X^k]\neq0$ for every $k$. Then the $p(n)\times p(n)$ matrix of Chern
+numbers
+\[
+\Big(\,C_I\big(X^{j_1}\times\cdots\times X^{j_s}\big)\,\Big)_{I,\ J\vdash n}
+\]
+is non-degenerate, where $p(n)$ is the number of partitions of $n$ and
+$J=(j_1,\dots,j_s)$ runs over them.
+\end{theorem}
+
+The proof is a triangularity argument with respect to a suitable order on
+partitions; it opens the final lecture, where the same result in its Pontryagin
+form feeds directly into the computation of the oriented cobordism ring.
